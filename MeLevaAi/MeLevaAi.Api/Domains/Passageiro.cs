@@ -1,6 +1,8 @@
-﻿namespace MeLevaAi.Api.Domains
+﻿using System.Text.RegularExpressions;
+
+namespace MeLevaAi.Api.Domains
 {
-    public class Passageiro : Pessoa
+    public partial class Passageiro : Pessoa
     {
         public Passageiro(string nome, string email, DateOnly dataNascimento, string cpf) : base(nome, email, dataNascimento, cpf) { }
 
@@ -19,11 +21,12 @@
             int idadeMinima = 16;
             DateOnly dataAtual = DateOnly.FromDateTime(DateTime.Now);
 
-            int idade = dataAtual.Year - this.DataNascimento.Year;
-            if (this.DataNascimento > dataAtual.AddYears(-idade))
+            int idade = dataAtual.Year - DataNascimento.Year;
+            if (DataNascimento > dataAtual.AddYears(-idade))
                 --idade;
 
             return idade >= idadeMinima;
         }
+
     }
 }

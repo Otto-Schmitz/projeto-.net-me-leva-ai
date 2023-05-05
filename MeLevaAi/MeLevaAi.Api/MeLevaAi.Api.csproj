@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <Folder Include="Contracts\Responses\" />
-    <Folder Include="Contracts\Requests\" />
     <Folder Include="Controllers\" />
   </ItemGroup>
 
