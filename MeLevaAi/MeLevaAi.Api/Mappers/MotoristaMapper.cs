@@ -8,7 +8,7 @@ namespace MeLevaAi.Api.Mappers
     public static class MotoristaMapper
     {
         public static Motorista ToMotorista(this AdicionarMotoristaRequest request)
-            => new(request.Nome, request.Email, request.DataNascimento, request.Cpf);
+            => new(request.Nome, request.Email, request.DataNascimento, request.Cpf, request.Categoria);
 
         public static MotoristaDto ToMotoristaDto(this Motorista motorista)
         {

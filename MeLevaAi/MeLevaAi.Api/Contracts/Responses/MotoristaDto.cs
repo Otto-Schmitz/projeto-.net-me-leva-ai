@@ -1,8 +1,9 @@
 ﻿using MeLevaAi.Api.Domain;
+using MeLevaAi.Api.Validations;
 
 namespace MeLevaAi.Api.Contracts.Responses
 {
-    public class MotoristaDto
+    public class MotoristaDto : Notifiable
     {
         public Guid Id { get; set; }
 
@@ -15,6 +16,6 @@ namespace MeLevaAi.Api.Contracts.Responses
         public string Cpf { get; set; }
 
         public Categoria Categoria { get; set; }
-
+        public MotoristaDto Motorista { get; internal set; }
     }
 }

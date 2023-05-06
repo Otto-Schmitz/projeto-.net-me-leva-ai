@@ -5,16 +5,24 @@ namespace MeLevaAi.Api.Domains
 {
     public partial class Motorista : Pessoa
     {
-        public Motorista(string nome, string email, DateOnly dataNascimento, string cpf) : base(nome, email, dataNascimento, cpf) { }
+
+        public Motorista(string nome, string email, DateOnly dataNascimento, string cpf, Categoria categoria)
+            : base(nome, email, dataNascimento, cpf)
+        {
+            Categoria = categoria;
+        }
 
         public Guid Id { get; init; } = Guid.NewGuid();
 
-        public Categoria Categoria { get; init; }
+        public Categoria Categoria { get; set; }
 
         public Motorista Alterar(Motorista motorista)
         {
-            DataNascimento = motorista.DataNascimento;
             Nome = motorista.Nome;
+            Email = motorista.Email;
+            DataNascimento = motorista.DataNascimento;
+            Cpf = motorista.Cpf;
+            Categoria = motorista.Categoria;
 
             return this;
         }
@@ -29,6 +37,33 @@ namespace MeLevaAi.Api.Domains
                 --idade;
 
             return idade >= idadeMinima;
+        }
+
+        public Motorista SacarSaldo(double valor)
+        {
+            if (valor <= 0)
+            {
+                throw new ArgumentException("O valor do saque deve ser maior que zero.");
+            }
+
+            if (Saldo < valor)
+            {
+                throw new InvalidOperationException("Saldo insuficiente.");
+            }
+
+            Saldo -= valor;
+            return this;
+        }
+
+        public Motorista DepositarSaldo(double valor)
+        {
+            if (valor <= 0)
+            {
+                throw new ArgumentException("O valor do saque deve ser maior que zero.");
+            }
+
+            Saldo += valor;
+            return this;
         }
 
     }

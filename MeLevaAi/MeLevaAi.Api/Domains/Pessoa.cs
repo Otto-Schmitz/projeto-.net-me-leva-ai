@@ -22,6 +22,8 @@ namespace MeLevaAi.Api.Domains
 
         public string Cpf { get; set; }
 
+        public double Saldo { get; set; } = 0;
+
         [GeneratedRegex("([0 - 9]{ 2}[.]?[0 - 9]{ 3[.]?[0 - 9]{ 3}[/]?[0 - 9]{ 4}[-]?[0 - 9]{ 2})| ([0 - 9]{ 3}[.]?[0 - 9]{ 3}[.]?[0 - 9]{ 3}[-]?[0 - 9]{ 2})")]
         public partial Regex CpfRegex();
 
