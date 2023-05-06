@@ -41,30 +41,14 @@ namespace MeLevaAi.Api.Domains
 
         public Motorista SacarSaldo(double valor)
         {
-            if (valor <= 0)
-            {
-                throw new ArgumentException("O valor do saque deve ser maior que zero.");
-            }
-
-            if (Saldo < valor)
-            {
-                throw new InvalidOperationException("Saldo insuficiente.");
-            }
-
             Saldo -= valor;
             return this;
         }
 
         public Motorista DepositarSaldo(double valor)
         {
-            if (valor <= 0)
-            {
-                throw new ArgumentException("O valor do saque deve ser maior que zero.");
-            }
-
             Saldo += valor;
             return this;
         }
-
     }
 }

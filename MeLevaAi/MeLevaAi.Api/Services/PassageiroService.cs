@@ -13,27 +13,28 @@ namespace MeLevaAi.Api.Services
 
         public PassageiroDto Adicionar(AdicionarPassageiroRequest request)
         {
-            var passageiro = request.ToPassageiro();
+            var novoPassageiro = request.ToPassageiro();
+
             var response = new PassageiroDto();
 
-            if (!passageiro.VerificaIdadeMinima())
-            {
-                response.AddNotification(new Validations.Notification("Idade mínima é de 16 anos."));
-                return response;
-            }
+            //if (!novoPassageiro.VerificaIdadeMinima())
+            //{
+            //    response.AddNotification(new Validations.Notification("Idade mínima é de 16 anos."));
+            //    return response;
+            //}
 
-            if (!passageiro.VerificaCpf())
-            {
-                response.AddNotification(new Validations.Notification("Cpf inválido."));
-                return response;
-            }
+            //if (!novoPassageiro.VerificaCpf())
+            //{
+            //    response.AddNotification(new Validations.Notification("Cpf inválido."));
+            //    return response;
+            //}
 
-            if (_passageiroRepository.Obter(passageiro.Id) != null) {
+            if (_passageiroRepository.Obter(novoPassageiro.Id) != null) {
                 response.AddNotification(new Validations.Notification("Passageiro já existe."));
                 return response;
             }
 
-            var novoPassageiro = _passageiroRepository.Cadastrar(passageiro);
+            _passageiroRepository.Cadastrar(novoPassageiro);
 
             return novoPassageiro.ToPassageiroDto();
         }
@@ -75,6 +76,56 @@ namespace MeLevaAi.Api.Services
             var passageiroNovo = request.ToPassageiro();
 
             passageiroAtual.Alterar(passageiroNovo);
+
+            response = passageiroAtual.ToPassageiroDto();
+
+            return response;
+        }
+
+        public PassageiroDto SacarSaldo(Guid id, ValorRequest request)
+        {
+            var response = new PassageiroDto();
+
+            var passageiroAtual = _passageiroRepository.Obter(id);
+
+            if (passageiroAtual is null)
+            {
+                response.AddNotification(new Validations.Notification($"Passageiro com o id {id} não encontrado."));
+                return response;
+            }
+
+            if (request.Valor > passageiroAtual.Saldo)
+            {
+                response.AddNotification(new Validations.Notification($"Saldo insuficiente para realizar esse saque."));
+                return response;
+            }
+
+            passageiroAtual.SacarSaldo(request.Valor);
+
+            response = passageiroAtual.ToPassageiroDto();
+
+            return response;
+        }
+
+        public PassageiroDto DepositarSaldo(Guid id, ValorRequest request)
+        {
+            var response = new PassageiroDto();
+
+            var passageiroAtual = _passageiroRepository.Obter(id);
+
+            if (passageiroAtual is null)
+            {
+                response.AddNotification(new Validations.Notification($"Passageiro com o id {id} não encontrado."));
+                return response;
+            }
+
+            if (request.Valor <= 0)
+            {
+                response.AddNotification(new Validations.Notification($"Valor depositado deve ser maior que zero."));
+                return response;
+            }
+
+            passageiroAtual.DepositarSaldo(request.Valor);
 
             response = passageiroAtual.ToPassageiroDto();
 

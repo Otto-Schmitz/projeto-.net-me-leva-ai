@@ -4,8 +4,7 @@ namespace MeLevaAi.Api.Domains
 {
     public partial class Passageiro : Pessoa
     {
-        public Passageiro(Guid id, string nome, string email, DateTime dataNascimento, string cpf) : base(nome, email, dataNascimento, cpf) {
-            Id = id;
+        public Passageiro(string nome, string email, DateTime dataNascimento, string cpf) : base(nome, email, dataNascimento, cpf) {
         }
 
         public Guid Id { get; init; } = Guid.NewGuid();
@@ -30,6 +29,18 @@ namespace MeLevaAi.Api.Domains
                 --idade;
 
             return idade >= idadeMinima;
+        }
+
+        public Passageiro SacarSaldo(double valor)
+        {
+            Saldo -= valor;
+            return this;
+        }
+
+        public Passageiro DepositarSaldo(double valor)
+        {
+            Saldo += valor;
+            return this;
         }
 
     }

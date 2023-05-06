@@ -16,5 +16,7 @@ namespace MeLevaAi.Api.Contracts.Responses
         public string Cpf { get; set; }
 
         public Categoria Categoria { get; set; }
+
+        public double Saldo { get; set; }
     }
 }

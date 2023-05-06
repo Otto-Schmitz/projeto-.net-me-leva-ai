@@ -20,6 +20,7 @@ namespace MeLevaAi.Api.Mappers
                 DataNascimento = motorista.DataNascimento,
                 Cpf = motorista.Cpf,
                 Categoria = motorista.Categoria,
+                Saldo = motorista.Saldo,
             };
         }
     }
