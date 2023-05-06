@@ -10,9 +10,7 @@ namespace MeLevaAi.Api.Domains
             Nome = nome;
             Email = email;
             DataNascimento = dataNascimento;
-            // fazer exception
-            if (VerificaCpf(cpf))
-                Cpf = cpf;
+            Cpf = cpf;
         }
 
         public string Nome { get; set; }
@@ -27,9 +25,9 @@ namespace MeLevaAi.Api.Domains
 
         public abstract bool VerificaIdadeMinima();
 
-        public bool VerificaCpf(string cpf)
+        public bool VerificaCpf()
         {
-            return CpfLibrary.Cpf.Check(cpf);
+            return CpfLibrary.Cpf.Check(Cpf);
         }
     }
 }

@@ -11,14 +11,12 @@ namespace MeLevaAi.Api.Controllers
     [Route("v1/veiculos")]
     public class VeiculoController : Controller
     {
-        private readonly VeiculoRepository _veiculoRepository;
 
         private readonly VeiculoService _veiculoService;
 
 
         public VeiculoController()
         {
-            _veiculoRepository = new VeiculoRepository();
             _veiculoService = new VeiculoService();
         }
 

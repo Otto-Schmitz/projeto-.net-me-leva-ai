@@ -12,8 +12,10 @@ namespace MeLevaAi.Api.Domains
 
         public Passageiro Alterar(Passageiro passageiro)
         {
-            DataNascimento = passageiro.DataNascimento;
             Nome = passageiro.Nome;
+            Email = passageiro.Email;
+            DataNascimento = passageiro.DataNascimento;
+            Cpf = passageiro.Cpf;
 
             return this;
         }

@@ -6,7 +6,7 @@ namespace MeLevaAi.Api.Domains
     public partial class Motorista : Pessoa
     {
 
-        public Motorista(string nome, string email, DateOnly dataNascimento, string cpf, Categoria categoria)
+        public Motorista(string nome, string email, DateTime dataNascimento, string cpf, Categoria categoria)
             : base(nome, email, dataNascimento, cpf)
         {
             Categoria = categoria;
@@ -30,7 +30,7 @@ namespace MeLevaAi.Api.Domains
         public override bool VerificaIdadeMinima()
         {
             int idadeMinima = 18;
-            DateOnly dataAtual = DateOnly.FromDateTime(DateTime.Now);
+            DateTime dataAtual = DateTime.Now;
 
             int idade = dataAtual.Year - DataNascimento.Year;
             if (DataNascimento > dataAtual.AddYears(-idade))

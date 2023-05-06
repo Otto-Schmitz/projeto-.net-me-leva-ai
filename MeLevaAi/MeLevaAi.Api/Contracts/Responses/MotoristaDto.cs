@@ -11,11 +11,10 @@ namespace MeLevaAi.Api.Contracts.Responses
 
         public string Email { get; set; }
 
-        public DateOnly DataNascimento { get; set; }
+        public DateTime DataNascimento { get; set; }
 
         public string Cpf { get; set; }
 
         public Categoria Categoria { get; set; }
-        public MotoristaDto Motorista { get; internal set; }
     }
 }

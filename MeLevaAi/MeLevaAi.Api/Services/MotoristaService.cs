@@ -27,7 +27,7 @@ namespace MeLevaAi.Api.Services
 
             var motorista = _motoristaRepository.Obter(id);
 
-            if (motorista is null)
+            if (motorista == null)
             {
                 response.AddNotification(new Validations.Notification($"Motorista com o id {id} não encontrado."));
                 return response;
@@ -51,7 +51,7 @@ namespace MeLevaAi.Api.Services
 
             var motoristaAtual = _motoristaRepository.Obter(id);
 
-            if (motoristaAtual is null)
+            if (motoristaAtual == null)
             {
                 response.AddNotification(new Validations.Notification($"Motorista com o id {id} não encontrado."));
                 return response;
@@ -61,7 +61,7 @@ namespace MeLevaAi.Api.Services
 
             motoristaAtual.Alterar(motoristaNovo);
 
-            response.Motorista = motoristaAtual.ToMotoristaDto();
+            response = motoristaAtual.ToMotoristaDto();
 
             return response;
         }
@@ -97,7 +97,7 @@ namespace MeLevaAi.Api.Services
 
             motoristaAtual.SacarSaldo(request.Valor);
 
-            response.Motorista = motoristaAtual.ToMotoristaDto();
+            response = motoristaAtual.ToMotoristaDto();
 
             return response;
         }
@@ -116,7 +116,7 @@ namespace MeLevaAi.Api.Services
 
             motoristaAtual.DepositarSaldo(request.Valor);
 
-            response.Motorista = motoristaAtual.ToMotoristaDto();
+            response = motoristaAtual.ToMotoristaDto();
 
             return response;
         }

@@ -11,14 +11,12 @@ namespace MeLevaAi.Api.Controllers
     [Route("v1/motoristas")]
     public class MotoristaController : Controller
     {
-        private readonly MotoristaRepository _motoristaRepository;
 
         private readonly MotoristaService _motoristaService;
 
 
         public MotoristaController()
         {
-            _motoristaRepository = new MotoristaRepository();
             _motoristaService = new MotoristaService();
         }
 
@@ -70,7 +68,7 @@ namespace MeLevaAi.Api.Controllers
             return Ok(response);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id}/sacar")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(MotoristaDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
         public ActionResult<MotoristaDto> SacarSaldo(Guid id, [FromBody] ValorRequest request)
@@ -83,7 +81,7 @@ namespace MeLevaAi.Api.Controllers
             return Ok(response);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id}/depositar")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(MotoristaDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
         public ActionResult<MotoristaDto> DepositarSaldo(Guid id, [FromBody] ValorRequest request)

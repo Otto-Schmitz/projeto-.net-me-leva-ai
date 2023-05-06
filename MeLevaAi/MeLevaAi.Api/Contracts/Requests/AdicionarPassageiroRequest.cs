@@ -2,7 +2,7 @@
 
 namespace MeLevaAi.Api.Contracts.Requests
 {
-    public class CadastrarPassageiroRequest
+    public class AdicionarPassageiroRequest
     {
         [Required(ErrorMessage = "O campo Id é obrigatório.")]
         public Guid? Id { get; set; }
