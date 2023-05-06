@@ -4,7 +4,9 @@ namespace MeLevaAi.Api.Domains
 {
     public partial class Passageiro : Pessoa
     {
-        public Passageiro(string nome, string email, DateOnly dataNascimento, string cpf) : base(nome, email, dataNascimento, cpf) { }
+        public Passageiro(Guid id, string nome, string email, DateTime dataNascimento, string cpf) : base(nome, email, dataNascimento, cpf) {
+            Id = id;
+        }
 
         public Guid Id { get; init; } = Guid.NewGuid();
 
@@ -19,7 +21,7 @@ namespace MeLevaAi.Api.Domains
         public override bool VerificaIdadeMinima()
         {
             int idadeMinima = 16;
-            DateOnly dataAtual = DateOnly.FromDateTime(DateTime.Now);
+            DateTime dataAtual = DateTime.Now;
 
             int idade = dataAtual.Year - DataNascimento.Year;
             if (DataNascimento > dataAtual.AddYears(-idade))
