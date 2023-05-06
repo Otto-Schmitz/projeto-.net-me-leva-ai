@@ -1,16 +1,17 @@
-﻿using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
+using CpfLibrary;
 
 namespace MeLevaAi.Api.Domains
 {
-    public abstract partial class Pessoa
+    public abstract class Pessoa
     {
-        protected Pessoa(string nome, string email, DateOnly dataNascimento, string cpf)
+        protected Pessoa(string nome, string email, DateTime dataNascimento, string cpf)
         {
             Nome = nome;
             Email = email;
             DataNascimento = dataNascimento;
             // fazer exception
-            if (VerificaCpf())
+            if (VerificaCpf(cpf))
                 Cpf = cpf;
         }
 
@@ -18,21 +19,17 @@ namespace MeLevaAi.Api.Domains
 
         public string Email { get; set; }
 
-        public DateOnly DataNascimento { get; set; }
+        public DateTime DataNascimento { get; set; }
 
         public string Cpf { get; set; }
 
         public double Saldo { get; set; } = 0;
 
-        [GeneratedRegex("([0 - 9]{ 2}[.]?[0 - 9]{ 3[.]?[0 - 9]{ 3}[/]?[0 - 9]{ 4}[-]?[0 - 9]{ 2})| ([0 - 9]{ 3}[.]?[0 - 9]{ 3}[.]?[0 - 9]{ 3}[-]?[0 - 9]{ 2})")]
-        public partial Regex CpfRegex();
-
         public abstract bool VerificaIdadeMinima();
 
-        public bool VerificaCpf()
+        public bool VerificaCpf(string cpf)
         {
-            return CpfRegex()
-                       .IsMatch(Cpf);
+            return CpfLibrary.Cpf.Check(cpf);
         }
     }
 }
