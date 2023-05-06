@@ -1,4 +1,4 @@
-﻿using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
 using CpfLibrary;
 
 namespace MeLevaAi.Api.Domains
@@ -23,10 +23,12 @@ namespace MeLevaAi.Api.Domains
 
         public string Cpf { get; set; }
 
+        public double Saldo { get; set; } = 0;
+
         public abstract bool VerificaIdadeMinima();
 
         public bool VerificaCpf(string cpf)
-        {//regex nao funciona
+        {
             return CpfLibrary.Cpf.Check(cpf);
         }
     }
