@@ -17,17 +17,17 @@ namespace MeLevaAi.Api.Services
 
             var response = new PassageiroDto();
 
-            //if (!novoPassageiro.VerificaIdadeMinima())
-            //{
-            //    response.AddNotification(new Validations.Notification("Idade mínima é de 16 anos."));
-            //    return response;
-            //}
+            if (!novoPassageiro.VerificaIdadeMinima())
+            {
+                response.AddNotification(new Validations.Notification("Idade mínima é de 16 anos."));
+                return response;
+            }
 
-            //if (!novoPassageiro.VerificaCpf())
-            //{
-            //    response.AddNotification(new Validations.Notification("Cpf inválido."));
-            //    return response;
-            //}
+            if (!novoPassageiro.VerificaCpf())
+            {
+                response.AddNotification(new Validations.Notification("Cpf inválido."));
+                return response;
+            }
 
             if (_passageiroRepository.Obter(novoPassageiro.Id) != null) {
                 response.AddNotification(new Validations.Notification("Passageiro já existe."));
@@ -82,13 +82,30 @@ namespace MeLevaAi.Api.Services
             return response;
         }
 
+        public PassageiroDto Remover(Guid id)
+        {
+            var response = new PassageiroDto();
+
+            var passageiro = _passageiroRepository.Obter(id);
+
+            if (passageiro == null)
+            {
+                response.AddNotification(new Validations.Notification($"Passageiro com o id {id} não encontrado."));
+                return response;
+            }
+
+            _passageiroRepository.Remover(id);
+
+            return response;
+        }
+
         public PassageiroDto SacarSaldo(Guid id, ValorRequest request)
         {
             var response = new PassageiroDto();
 
             var passageiroAtual = _passageiroRepository.Obter(id);
 
-            if (passageiroAtual is null)
+            if (passageiroAtual == null)
             {
                 response.AddNotification(new Validations.Notification($"Passageiro com o id {id} não encontrado."));
                 return response;
@@ -113,7 +130,7 @@ namespace MeLevaAi.Api.Services
 
             var passageiroAtual = _passageiroRepository.Obter(id);
 
-            if (passageiroAtual is null)
+            if (passageiroAtual == null)
             {
                 response.AddNotification(new Validations.Notification($"Passageiro com o id {id} não encontrado."));
                 return response;
@@ -131,6 +148,5 @@ namespace MeLevaAi.Api.Services
 
             return response;
         }
-
     }
 }
