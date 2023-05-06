@@ -29,6 +29,7 @@ namespace MeLevaAi.Api.Contracts.Responses
         public int QuantidadeDeLugares { get; set; }
 
         public Categoria Categoria { get; set; }
+
         public object Veiculo { get; internal set; }
     }
 }
