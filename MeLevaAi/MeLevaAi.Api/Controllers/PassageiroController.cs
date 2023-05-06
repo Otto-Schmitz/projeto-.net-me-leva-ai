@@ -22,17 +22,17 @@ namespace MeLevaAi.Api.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PassageiroDto))]
-        public ActionResult<IEnumerable<MotoristaDto>> Listar()
+        public ActionResult<IEnumerable<PassageiroDto>> Listar()
         {
-            var motoristas = _passageiroService.Listar();
+            var passageiros = _passageiroService.Listar();
 
-            return Ok(motoristas);
+            return Ok(passageiros);
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PassageiroDto))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResponse))]
-        public ActionResult<MotoristaDto> Obter(Guid id)
+        public ActionResult<PassageiroDto> Obter(Guid id)
         {
             var response = _passageiroService.Obter(id);
 
@@ -61,6 +61,32 @@ namespace MeLevaAi.Api.Controllers
         public ActionResult<PassageiroDto> Alterar(Guid id, [FromBody] AdicionarPassageiroRequest request)
         {
             var response = _passageiroService.Alterar(id, request);
+
+            if (!response.IsValid())
+                return BadRequest(new ErrorResponse(response.Notifications));
+
+            return Ok(response);
+        }
+
+        [HttpPut("{id}/sacar")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PassageiroDto))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
+        public ActionResult<PassageiroDto> SacarSaldo(Guid id, [FromBody] ValorRequest request)
+        {
+            var response = _passageiroService.SacarSaldo(id, request);
+
+            if (!response.IsValid())
+                return BadRequest(new ErrorResponse(response.Notifications));
+
+            return Ok(response);
+        }
+
+        [HttpPut("{id}/depositar")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PassageiroDto))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
+        public ActionResult<PassageiroDto> DepositarSaldo(Guid id, [FromBody] ValorRequest request)
+        {
+            var response = _passageiroService.DepositarSaldo(id, request);
 
             if (!response.IsValid())
                 return BadRequest(new ErrorResponse(response.Notifications));

@@ -14,7 +14,7 @@ namespace MeLevaAi.Api.Repositories
         public Motorista? Obter(Guid id)
             => _motoristas.FirstOrDefault(v => v.Id == id);
 
-        public void Adicionar(Motorista motorista)
+        public void Cadastrar(Motorista motorista)
         {
             _motoristas.Add(motorista);
         }
@@ -27,16 +27,6 @@ namespace MeLevaAi.Api.Repositories
                 return false;
 
             return _motoristas.Remove(motorista);
-        }
-
-        public void Atualizar(Motorista motorista)
-        {
-            var index = _motoristas.FindIndex(v => v.Id == motorista.Id);
-
-            if (index != -1)
-            {
-                _motoristas[index] = motorista;
-            }
         }
     }
 }

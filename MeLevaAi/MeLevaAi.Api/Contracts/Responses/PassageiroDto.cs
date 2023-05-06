@@ -13,5 +13,7 @@ namespace MeLevaAi.Api.Contracts.Responses
         public DateTime DataNascimento { get; set; }
 
         public string Cpf { get; set; }
+
+        public double Saldo { get; set; }
     }
 }

@@ -14,10 +14,12 @@ namespace MeLevaAi.Api.Mappers
         public static PassageiroDto ToPassageiroDto(this Passageiro passageiro)
             => new PassageiroDto
             {
+                Id = passageiro.Id,
                 Nome = passageiro.Nome,
                 Email = passageiro.Email,
                 DataNascimento = passageiro.DataNascimento,
-                Cpf = passageiro.Cpf
+                Cpf = passageiro.Cpf,
+                Saldo = passageiro.Saldo,
             };
     }
 }

@@ -40,7 +40,27 @@ namespace MeLevaAi.Api.Services
         {
             var novoMotorista = request.ToMotorista();
 
-            _motoristaRepository.Adicionar(novoMotorista);
+            var response = new MotoristaDto();
+
+            //if (!novoMotorista.VerificaIdadeMinima())
+            //{
+            //    response.AddNotification(new Validations.Notification("Idade mínima é de 18 anos."));
+            //    return response;
+            //}
+
+            //if (!novoMotorista.VerificaCpf())
+            //{
+            //    response.AddNotification(new Validations.Notification("Cpf inválido."));
+            //    return response;
+            //}
+
+            if (_motoristaRepository.Obter(novoMotorista.Id) != null)
+            {
+                response.AddNotification(new Validations.Notification("Motorista já existe."));
+                return response;
+            }
+
+            _motoristaRepository.Cadastrar(novoMotorista);
 
             return novoMotorista.ToMotoristaDto();
         }
@@ -95,6 +115,12 @@ namespace MeLevaAi.Api.Services
                 return response;
             }
 
+            if (request.Valor > motoristaAtual.Saldo)
+            {
+                response.AddNotification(new Validations.Notification($"Saldo insuficiente para realizar esse saque."));
+                return response;
+            }
+
             motoristaAtual.SacarSaldo(request.Valor);
 
             response = motoristaAtual.ToMotoristaDto();
@@ -111,6 +137,12 @@ namespace MeLevaAi.Api.Services
             if (motoristaAtual is null)
             {
                 response.AddNotification(new Validations.Notification($"Motorista com o id {id} não encontrado."));
+                return response;
+            }
+
+            if (request.Valor <= 0)
+            {
+                response.AddNotification(new Validations.Notification($"Valor depositado deve ser maior que zero."));
                 return response;
             }
 
