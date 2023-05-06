@@ -4,9 +4,6 @@ namespace MeLevaAi.Api.Contracts.Requests
 {
     public class AdicionarPassageiroRequest
     {
-        [Required(ErrorMessage = "O campo Id é obrigatório.")]
-        public Guid? Id { get; set; }
-
         [Required(ErrorMessage = "O campo Nome é obrigatório.")]
         [MaxLength(100, ErrorMessage = "O campo Nome deve ter apenas 10 caracteres.")]
         public string? Nome { get; set; }
@@ -21,6 +18,6 @@ namespace MeLevaAi.Api.Contracts.Requests
         public DateTime DataNascimento { get; set; }
 
         [Required(ErrorMessage = "O campo Cpf é obrigatório.")]
-        public string? Cpf { get; set; }
+        public string Cpf { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace MeLevaAi.Api.Mappers
     {
         public static Passageiro ToPassageiro(this AdicionarPassageiroRequest request)
         {
-            return new(request.Id.GetValueOrDefault(), request.Nome, request.Email, request.DataNascimento, request.Cpf);
+            return new(request.Nome, request.Email, request.DataNascimento, request.Cpf);
         }
 
         public static PassageiroDto ToPassageiroDto(this Passageiro passageiro)
