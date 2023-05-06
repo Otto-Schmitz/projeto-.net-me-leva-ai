@@ -5,7 +5,6 @@
 
         public Veiculo(Guid motoristaId, string placa, string marca, string modelo, int ano, string cor, string fotoUrl, int quantidadeDeLugares, Categoria categoria)
         {
-            
             MotoristaId = motoristaId;
             Placa = placa;
             Marca = marca;
