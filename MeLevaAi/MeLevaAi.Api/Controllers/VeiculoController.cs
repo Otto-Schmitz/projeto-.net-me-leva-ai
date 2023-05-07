@@ -17,7 +17,7 @@ namespace MeLevaAi.Api.Controllers
 
         public VeiculoController()
         {
-            _veiculoService = new VeiculoService();
+            _veiculoService = new VeiculoService(new VeiculoRepository(), new MotoristaRepository());
         }
 
         [HttpGet]

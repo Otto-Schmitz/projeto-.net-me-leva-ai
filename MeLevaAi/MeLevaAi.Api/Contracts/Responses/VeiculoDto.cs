@@ -30,6 +30,5 @@ namespace MeLevaAi.Api.Contracts.Responses
 
         public Categoria Categoria { get; set; }
 
-        public object Veiculo { get; internal set; }
     }
 }

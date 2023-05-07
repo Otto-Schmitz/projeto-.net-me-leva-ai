@@ -37,5 +37,11 @@ namespace MeLevaAi.Api.Repositories
                 _veiculos[index] = veiculo;
             }
         }
+
+        public IEnumerable<Veiculo> ObterPorMotorista(Guid motoristaId)
+        {
+            return _veiculos.Where(v => v.MotoristaId == motoristaId);
+        }
+
     }
 }
