@@ -1,4 +1,6 @@
-﻿namespace MeLevaAi.Api.Domain
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MeLevaAi.Api.Domain
 {
     public class Veiculo
     {
@@ -33,6 +35,7 @@
 
         public int QuantidadeDeLugares { get; private set; }
 
+        [EnumDataType(typeof(Categoria), ErrorMessage = "O campo Categoria deve ser um valor válido.")]
         public Categoria Categoria { get; private set; }
 
         public DateTime DataCriacao { get; init; } = DateTime.Now;

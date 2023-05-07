@@ -1,7 +1,10 @@
 ﻿using MeLevaAi.Api.Contracts.Requests;
 using MeLevaAi.Api.Contracts.Responses;
+using MeLevaAi.Api.Domain;
+using MeLevaAi.Api.Domains;
 using MeLevaAi.Api.Mappers;
 using MeLevaAi.Api.Repositories;
+using MeLevaAi.Api.Validations;
 
 namespace MeLevaAi.Api.Services
 {
@@ -9,9 +12,13 @@ namespace MeLevaAi.Api.Services
     {
         private readonly VeiculoRepository _veiculoRepository;
 
+        private readonly MotoristaRepository _motoristaRepository;
+
         public VeiculoService()
         {
             _veiculoRepository = new VeiculoRepository();
+
+            _motoristaRepository = new MotoristaRepository();
         }
 
         public IEnumerable<VeiculoDto> Listar()
@@ -30,6 +37,7 @@ namespace MeLevaAi.Api.Services
             if (veiculo is null)
             {
                 response.AddNotification(new Validations.Notification($"Veículo com o id {id} não encontrado."));
+
                 return response;
             }
 
@@ -40,10 +48,31 @@ namespace MeLevaAi.Api.Services
         {
             var novoVeiculo = request.ToVeiculo();
 
+            var motorista = _motoristaRepository.Obter(request.MotoristaId);
+
+            if (motorista is null)
+            {
+                var response = new VeiculoDto();
+
+                response.AddNotification(new Validations.Notification($"Motorista com o id {request.MotoristaId} não encontrado."));
+
+                return response;
+            }
+
+            if (!VeiculoValidation.VerificarCategoria(novoVeiculo, motorista))
+            {
+                var response = new VeiculoDto();
+
+                response.AddNotification(new Validations.Notification("A categoria do veículo não é compatível com a categoria da carteira de habilitação do motorista."));
+
+                return response;
+            }
+
             _veiculoRepository.Adicionar(novoVeiculo);
 
             return novoVeiculo.ToVeiculoDto();
         }
+
 
         public VeiculoDto Alterar(Guid id, AdicionarVeiculoRequest request)
         {
@@ -54,16 +83,31 @@ namespace MeLevaAi.Api.Services
             if (veiculoAtual is null)
             {
                 response.AddNotification(new Validations.Notification($"Veículo com o id {id} não encontrado."));
+
                 return response;
             }
 
-            var veiculoNovo = request.ToVeiculo();
+            var motorista = _motoristaRepository.Obter(request.MotoristaId);
 
-            veiculoAtual.Alterar(veiculoNovo);
+            var veiculoAlterado = request.ToVeiculo();
 
-            response.Veiculo = veiculoAtual.ToVeiculoDto();
+            if (motorista is null)
+            {
+                response.AddNotification(new Validations.Notification($"Motorista com o id {request.MotoristaId} não encontrado."));
 
-            return response;
+                return response;
+            }
+
+            if (!VeiculoValidation.VerificarCategoria(veiculoAlterado, motorista))
+            {
+                response.AddNotification(new Validations.Notification("A categoria do veículo não é compatível com a categoria da carteira de habilitação do motorista."));
+
+                return response;
+            }
+
+            veiculoAtual.Alterar(veiculoAlterado);
+
+            return veiculoAlterado.ToVeiculoDto();
         }
 
         public VeiculoDto Remover(Guid id)
@@ -75,6 +119,7 @@ namespace MeLevaAi.Api.Services
             if (veiculo is null)
             {
                 response.AddNotification(new Validations.Notification($"Veículo com o id {id} não encontrado."));
+
                 return response;
             }
 

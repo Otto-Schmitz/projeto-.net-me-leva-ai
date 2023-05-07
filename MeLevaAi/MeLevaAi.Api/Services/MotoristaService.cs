@@ -10,10 +10,12 @@ namespace MeLevaAi.Api.Services
     public class MotoristaService
     {
         private readonly MotoristaRepository _motoristaRepository;
+        private readonly VeiculoRepository _veiculoRepository;
 
         public MotoristaService()
         {
             _motoristaRepository = new MotoristaRepository();
+            _veiculoRepository = new VeiculoRepository();
         }
 
         public IEnumerable<MotoristaDto> Listar()
@@ -44,23 +46,17 @@ namespace MeLevaAi.Api.Services
 
             var response = new MotoristaDto();
 
-            if (!novoMotorista.VerificaIdadeMinima())
-            {
-                response.AddNotification(new Validations.Notification("Idade mínima é de 18 anos."));
-                return response;
-            }
+            //if (!novoMotorista.VerificaIdadeMinima())
+            //{
+            //    response.AddNotification(new Validations.Notification("Idade mínima é de 18 anos."));
+            //    return response;
+            //}
 
-            if (!novoMotorista.VerificaCpf())
-            {
-                response.AddNotification(new Validations.Notification("Cpf inválido."));
-                return response;
-            }
-
-            if (!Enum.IsDefined(typeof(Categoria), request.CarteiraDeHabilitacao.Categoria))
-            {
-                response.AddNotification(new Notification("Categoria inválida."));
-                return response;
-            }
+            //if (!novoMotorista.VerificaCpf())
+            //{
+            //    response.AddNotification(new Validations.Notification("Cpf inválido."));
+            //    return response;
+            //}
 
             _motoristaRepository.Cadastrar(novoMotorista);
 
@@ -94,9 +90,17 @@ namespace MeLevaAi.Api.Services
 
             var motorista = _motoristaRepository.Obter(id);
 
-            if (motorista == null)
+            if (motorista is null)
             {
                 response.AddNotification(new Validations.Notification($"Motorista com o id {id} não encontrado."));
+                return response;
+            }
+
+            var veiculo = _veiculoRepository.ObterPorMotorista(id);
+
+            if (veiculo is not null)
+            {
+                response.AddNotification(new Validations.Notification($"Não é possível remover o motorista com o id {id}, pois ele possui um veículo associado."));
                 return response;
             }
 
@@ -111,7 +115,7 @@ namespace MeLevaAi.Api.Services
 
             var motoristaAtual = _motoristaRepository.Obter(id);
 
-            if (motoristaAtual == null)
+            if (motoristaAtual is null)
             {
                 response.AddNotification(new Validations.Notification($"Motorista com o id {id} não encontrado."));
                 return response;

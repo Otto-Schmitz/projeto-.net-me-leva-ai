@@ -13,11 +13,14 @@ namespace MeLevaAi.Api.Controllers
     {
 
         private readonly MotoristaService _motoristaService;
+        private readonly VeiculoService _veiculoService;
 
 
         public MotoristaController()
         {
             _motoristaService = new MotoristaService();
+            _veiculoService = new VeiculoService();
+
         }
 
         [HttpGet]

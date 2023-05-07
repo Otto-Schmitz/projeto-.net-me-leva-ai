@@ -5,6 +5,8 @@ using System.Reflection;
 using System.Runtime.ConstrainedExecution;
 using System.Text.RegularExpressions;
 using MeLevaAi.Api.Validations;
+using System.Xml.Linq;
+using System.ComponentModel.DataAnnotations;
 
 namespace MeLevaAi.Api.Contracts.Responses
 {
@@ -29,7 +31,5 @@ namespace MeLevaAi.Api.Contracts.Responses
         public int QuantidadeDeLugares { get; set; }
 
         public Categoria Categoria { get; set; }
-
-        public object Veiculo { get; internal set; }
     }
 }

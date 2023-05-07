@@ -7,7 +7,7 @@ namespace MeLevaAi.Api.Contracts.Requests
     public class AdicionarVeiculoRequest
     {
         [Required(ErrorMessage = "O campo Id do Motorista é obrigatório.")]
-        public Guid? MotoristaId { get; set; }
+        public Guid MotoristaId { get; set; }
 
         [Required(ErrorMessage = "O campo Placa do Veículo é obrigatório.")]
         [MaxLength(7, ErrorMessage = "O campo Placa do Veículo deve ter no máximo 7 caracteres.")]
@@ -34,7 +34,7 @@ namespace MeLevaAi.Api.Contracts.Requests
         [Required(ErrorMessage = "O campo quantidade de lugares do veículo é obrigatório.")]
         public int QuantidadeDeLugares { get; set; }
 
-        [Required(ErrorMessage = "O campo Categoria do Veículo é obrigatório.")]
+        [EnumDataType(typeof(Categoria), ErrorMessage = "O campo Categoria do Veículo deve ser um valor válido.")]
         public Categoria Categoria { get; set; }
     }
 }
