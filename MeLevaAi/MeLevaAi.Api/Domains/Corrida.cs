@@ -1,4 +1,4 @@
-﻿using MeLevaAi.Api.Domain;
+﻿using MeLevaAi.Api.Domains;
 
 namespace MeLevaAi.Api.Domains
 {
@@ -17,6 +17,10 @@ namespace MeLevaAi.Api.Domains
         public Avaliacao AvaliacaoDoMotorista { get; private set; }
 
         public Avaliacao AvaliacaoDoPassageiro { get; private set; }
+
+        public int TempoEstimado { get; init; } = new Random().Next(5, 10);
+
+        public StatusCorrida statusCorrida { get; set; } = StatusCorrida.Solicitada;
 
         public Corrida(Guid passageiroId, Veiculo veiculo, Coordenadas pontoInicial, Coordenadas pontoFinal)
         {

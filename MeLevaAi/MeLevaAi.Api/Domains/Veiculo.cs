@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MeLevaAi.Api.Domain
+namespace MeLevaAi.Api.Domains
 {
     public class Veiculo
     {
@@ -17,9 +17,11 @@ namespace MeLevaAi.Api.Domain
             Categoria = categoria;
         }
 
+        public Veiculo() { }
+
         public Guid Id { get; init; } = Guid.NewGuid();
 
-        public Guid MotoristaId { get; private set; }
+        public Guid? MotoristaId { get; private set; }
 
         public string Placa { get; private set; }
 

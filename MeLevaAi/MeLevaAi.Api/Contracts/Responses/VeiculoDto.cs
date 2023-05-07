@@ -1,4 +1,4 @@
-﻿using MeLevaAi.Api.Domain;
+﻿using MeLevaAi.Api.Domains;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Numerics;
 using System.Reflection;
@@ -14,7 +14,7 @@ namespace MeLevaAi.Api.Contracts.Responses
     {
         public Guid Id { get; set; }
 
-        public Guid MotoristaId { get; set; }
+        public Guid? MotoristaId { get; set; }
 
         public string Placa { get; set; }
 

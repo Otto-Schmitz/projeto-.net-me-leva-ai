@@ -1,4 +1,4 @@
-﻿using MeLevaAi.Api.Domain;
+﻿using MeLevaAi.Api.Domains;
 using MeLevaAi.Api.Domains;
 using System.Xml.Linq;
 
@@ -11,12 +11,11 @@ namespace MeLevaAi.Api.Repositories
         public IEnumerable<Motorista> Listar()
             => _motoristas;
 
-        public Motorista? Obter(Guid id)
+        public Motorista? Obter(Guid? id)
             => _motoristas.FirstOrDefault(v => v.Id == id);
 
         public Motorista? ObterPorCpf(string cpf)
             => _motoristas.FirstOrDefault(v => v.Cpf == cpf);
-
 
         public void Cadastrar(Motorista motorista)
         {

@@ -1,6 +1,5 @@
 ﻿using MeLevaAi.Api.Contracts.Requests;
 using MeLevaAi.Api.Contracts.Responses;
-using MeLevaAi.Api.Domain;
 using MeLevaAi.Api.Domains;
 
 namespace MeLevaAi.Api.Mappers
@@ -8,14 +7,13 @@ namespace MeLevaAi.Api.Mappers
     public static class MotoristaMapper
     {
         public static Motorista ToMotorista(this AdicionarMotoristaRequest request)
-            => new Motorista(request.Nome, request.Email, request.DataNascimento, request.Cpf, request.CarteiraDeHabilitacao);
+            => new(request.Nome, request.Email, request.DataNascimento, request.Cpf, request.CarteiraDeHabilitacao);
 
         public static Motorista ToAlterarMotorista(this AlterarMotoristaRequest request)
             => new Motorista(request.Nome, request.Email, request.DataNascimento, request.Cpf, request.CarteiraDeHabilitacao);
 
         public static MotoristaDto ToMotoristaDto(this Motorista motorista)
-        {
-            return new MotoristaDto
+            => new()
             {
                 Id = motorista.Id,
                 Nome = motorista.Nome,
@@ -26,6 +24,6 @@ namespace MeLevaAi.Api.Mappers
                 Saldo = motorista.Saldo,
                 Avaliacoes = motorista.Avaliacoes,
             };
-        }
+        
     }
 }

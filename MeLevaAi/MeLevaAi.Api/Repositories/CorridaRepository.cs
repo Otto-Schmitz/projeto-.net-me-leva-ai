@@ -18,10 +18,10 @@ namespace MeLevaAi.Api.Repositories
             _corridas.Add(corrida);
         }
 
-        public void Alterar(Corrida corridaNova)
+        public void Alterar(Corrida corrida)
         {
-            Remover(corridaNova.CorridaID);
-            Adicionar(corridaNova);
+            Remover(corrida.CorridaID);
+            Adicionar(corrida);
         }
 
         public bool Remover(Guid id)

@@ -1,4 +1,4 @@
-﻿using MeLevaAi.Api.Contracts.Requests;
+using MeLevaAi.Api.Contracts.Requests;
 using MeLevaAi.Api.Contracts.Responses;
 using MeLevaAi.Api.Domains;
 
@@ -12,8 +12,9 @@ namespace MeLevaAi.Api.Mappers
         public static Passageiro ToAlterarPassageiro(this AlterarPassageiroRequest request)
             => new(request.Nome, request.Email, request.DataNascimento, request.Cpf);
 
+
         public static PassageiroDto ToPassageiroDto(this Passageiro passageiro)
-            => new PassageiroDto
+            => new()
             {
                 Id = passageiro.Id,
                 Nome = passageiro.Nome,

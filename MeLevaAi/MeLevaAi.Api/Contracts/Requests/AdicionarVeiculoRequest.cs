@@ -1,4 +1,4 @@
-﻿using MeLevaAi.Api.Domain;
+﻿using MeLevaAi.Api.Domains;
 using System;
 using System.ComponentModel.DataAnnotations;
 

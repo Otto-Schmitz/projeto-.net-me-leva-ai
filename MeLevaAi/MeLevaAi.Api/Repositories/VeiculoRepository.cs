@@ -1,4 +1,4 @@
-﻿using MeLevaAi.Api.Domain;
+﻿using MeLevaAi.Api.Domains;
 using System.Xml.Linq;
 
 namespace MeLevaAi.Api.Repositories
@@ -22,7 +22,7 @@ namespace MeLevaAi.Api.Repositories
         {
             var veiculo = Obter(id);
 
-            if (veiculo is null)
+            if (veiculo == null)
                 return false;
 
             return _veiculos.Remove(veiculo);
@@ -30,16 +30,19 @@ namespace MeLevaAi.Api.Repositories
 
         public void Atualizar(Veiculo veiculo)
         {
-            var index = _veiculos.FindIndex(v => v.Id == veiculo.Id);
-
-            if (index != -1)
-            {
-                _veiculos[index] = veiculo;
-            }
+            Remover(veiculo.Id);
+            Adicionar(veiculo);
         }
         public Veiculo? ObterPorMotorista(Guid motoristaId)
         {
             return _veiculos.FirstOrDefault(v => v.MotoristaId == motoristaId);
+        }
+
+        public Veiculo? ObterAleatorio()
+        {
+            var random = new Random().Next(0, _veiculos.Count - 1);
+
+            return _veiculos[random];
         }
 
     }
