@@ -1,6 +1,5 @@
 ﻿using MeLevaAi.Api.Contracts.Requests;
 using MeLevaAi.Api.Contracts.Responses;
-using MeLevaAi.Api.Domains;
 using MeLevaAi.Api.Mappers;
 using MeLevaAi.Api.Repositories;
 
@@ -9,12 +8,10 @@ namespace MeLevaAi.Api.Services
     public class VeiculoService
     {
         private readonly VeiculoRepository _veiculoRepository;
-        private readonly MotoristaRepository _motoristaRepository;
 
-        public VeiculoService(VeiculoRepository veiculoRepository, MotoristaRepository motoristaRepository)
+        public VeiculoService()
         {
-            _veiculoRepository = veiculoRepository;
-            _motoristaRepository = motoristaRepository;
+            _veiculoRepository = new VeiculoRepository();
         }
 
         public IEnumerable<VeiculoDto> Listar()
@@ -43,16 +40,6 @@ namespace MeLevaAi.Api.Services
         {
             var novoVeiculo = request.ToVeiculo();
 
-            var motorista = _motoristaRepository.Obter(request.MotoristaId);
-
-            var response = new VeiculoDto();
-
-            if (motorista is null)
-            {
-                response.AddNotification(new Validations.Notification($"Motorista com o id {request.MotoristaId} não encontrado."));
-                return response;
-            }
-
             _veiculoRepository.Adicionar(novoVeiculo);
 
             return novoVeiculo.ToVeiculoDto();
@@ -64,14 +51,6 @@ namespace MeLevaAi.Api.Services
 
             var veiculoAtual = _veiculoRepository.Obter(id);
 
-            var motorista = _motoristaRepository.Obter(request.MotoristaId);
-
-            if (motorista is null)
-            {
-                response.AddNotification(new Validations.Notification($"Motorista com o id {request.MotoristaId} não encontrado."));
-                return response;
-            }
-
             if (veiculoAtual is null)
             {
                 response.AddNotification(new Validations.Notification($"Veículo com o id {id} não encontrado."));
@@ -81,6 +60,8 @@ namespace MeLevaAi.Api.Services
             var veiculoNovo = request.ToVeiculo();
 
             veiculoAtual.Alterar(veiculoNovo);
+
+            response.Veiculo = veiculoAtual.ToVeiculoDto();
 
             return response;
         }
