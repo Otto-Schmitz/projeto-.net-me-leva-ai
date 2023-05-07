@@ -1,4 +1,4 @@
-﻿using MeLevaAi.Api.Domains;
+using MeLevaAi.Api.Domains;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -10,10 +10,13 @@ namespace MeLevaAi.Api.Domains
 
         public List<Corrida> Corridas { get; init; } = new List<Corrida>();
 
+        public List<Avaliacao> Avaliacoes { get; set; }
+
         public Motorista(string nome, string email, DateTime dataNascimento, string cpf, CarteiraDeHabilitacao carteiraDeHabilitacao)
             : base(nome, email, dataNascimento, cpf)
         {
             CarteiraDeHabilitacao = carteiraDeHabilitacao;
+            Avaliacoes = new List<Avaliacao>();
         }
 
         public Motorista Alterar(Motorista motorista)

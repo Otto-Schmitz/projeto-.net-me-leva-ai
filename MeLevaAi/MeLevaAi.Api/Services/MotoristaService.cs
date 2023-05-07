@@ -63,7 +63,7 @@ namespace MeLevaAi.Api.Services
             return novoMotorista.ToMotoristaDto();
         }
 
-        public MotoristaDto Alterar(Guid id, AdicionarMotoristaRequest request)
+        public MotoristaDto Alterar(Guid id, AlterarMotoristaRequest request)
         {
             var response = new MotoristaDto();
 
@@ -75,7 +75,7 @@ namespace MeLevaAi.Api.Services
                 return response;
             }
 
-            var motoristaNovo = request.ToMotorista();
+            var motoristaNovo = request.ToAlterarMotorista();
 
             motoristaAtual.Alterar(motoristaNovo);
 
