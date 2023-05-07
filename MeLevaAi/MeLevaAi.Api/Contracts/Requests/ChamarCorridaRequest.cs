@@ -16,18 +16,3 @@ namespace MeLevaAi.Api.Contracts.Requests
         public Coordenadas PontoFinal { get; set; }
     }
 }
-
-
-//public Guid CorridaID { get; init; } = Guid.NewGuid();
-
-//public Guid PassageiroId { get; private set; }
-
-//public Veiculo Veiculo { get; private set; }
-
-//public Coordenadas PontoInicial { get; private set; }
-
-//public Coordenadas PontoFinal { get; private set; }
-
-//public Avaliacao AvaliacaoDoMotorista { get; private set; }
-
-//public Avaliacao AvaliacaoDoPassageiro { get; private set; }
