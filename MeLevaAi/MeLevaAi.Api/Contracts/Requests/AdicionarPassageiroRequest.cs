@@ -18,6 +18,6 @@ namespace MeLevaAi.Api.Contracts.Requests
         public DateTime DataNascimento { get; set; }
 
         [Required(ErrorMessage = "O campo Cpf é obrigatório.")]
-        public string? Cpf { get; set; }
+        public string Cpf { get; set; }
     }
 }

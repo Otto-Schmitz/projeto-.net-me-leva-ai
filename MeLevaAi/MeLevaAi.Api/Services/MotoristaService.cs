@@ -44,17 +44,17 @@ namespace MeLevaAi.Api.Services
 
             var response = new MotoristaDto();
 
-            //if (!novoMotorista.VerificaIdadeMinima())
-            //{
-            //    response.AddNotification(new Validations.Notification("Idade mínima é de 18 anos."));
-            //    return response;
-            //}
+            if (!novoMotorista.VerificaIdadeMinima())
+            {
+                response.AddNotification(new Validations.Notification("Idade mínima é de 18 anos."));
+                return response;
+            }
 
-            //if (!novoMotorista.VerificaCpf())
-            //{
-            //    response.AddNotification(new Validations.Notification("Cpf inválido."));
-            //    return response;
-            //}
+            if (!novoMotorista.VerificaCpf())
+            {
+                response.AddNotification(new Validations.Notification("Cpf inválido."));
+                return response;
+            }
 
             if (!Enum.IsDefined(typeof(Categoria), request.CarteiraDeHabilitacao.Categoria))
             {
@@ -94,7 +94,7 @@ namespace MeLevaAi.Api.Services
 
             var motorista = _motoristaRepository.Obter(id);
 
-            if (motorista is null)
+            if (motorista == null)
             {
                 response.AddNotification(new Validations.Notification($"Motorista com o id {id} não encontrado."));
                 return response;
@@ -111,7 +111,7 @@ namespace MeLevaAi.Api.Services
 
             var motoristaAtual = _motoristaRepository.Obter(id);
 
-            if (motoristaAtual is null)
+            if (motoristaAtual == null)
             {
                 response.AddNotification(new Validations.Notification($"Motorista com o id {id} não encontrado."));
                 return response;
@@ -136,7 +136,7 @@ namespace MeLevaAi.Api.Services
 
             var motoristaAtual = _motoristaRepository.Obter(id);
 
-            if (motoristaAtual is null)
+            if (motoristaAtual == null)
             {
                 response.AddNotification(new Validations.Notification($"Motorista com o id {id} não encontrado."));
                 return response;

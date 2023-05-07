@@ -94,5 +94,18 @@ namespace MeLevaAi.Api.Controllers
             return Ok(response);
         }
 
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PassageiroDto))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResponse))]
+        public ActionResult<PassageiroDto> Remover(Guid id)
+        {
+            var response = _passageiroService.Remover(id);
+
+            if (!response.IsValid())
+                return NotFound(new ErrorResponse(response.Notifications));
+
+            return Ok(response);
+        }
+
     }
 }
