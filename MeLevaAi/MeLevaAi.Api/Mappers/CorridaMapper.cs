@@ -18,6 +18,14 @@ namespace MeLevaAi.Api.Mappers
                 Veiculo = corrida.Veiculo,
                 TempoEstimando = corrida.TempoEstimado
             };
+
+        public static ChamarCorridaDto ToChamarCorridaDto(this Corrida corrida)
+            => new()
+            {
+                CorridaID = corrida.CorridaID,
+                Veiculo = corrida.Veiculo,
+                TempoEstimado = corrida.TempoEstimado,
+            };
     }
 
 }

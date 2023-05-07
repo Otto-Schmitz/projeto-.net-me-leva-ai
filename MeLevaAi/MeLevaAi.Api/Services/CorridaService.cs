@@ -1,6 +1,7 @@
 using MeLevaAi.Api.Contracts.Requests;
 using MeLevaAi.Api.Contracts.Responses;
 using MeLevaAi.Api.Domains;
+using MeLevaAi.Api.Helpers;
 using MeLevaAi.Api.Mappers;
 using MeLevaAi.Api.Repositories;
 
@@ -25,9 +26,9 @@ namespace MeLevaAi.Api.Services
             _passageiroRepository = new PassageiroRepository();
         }
 
-        public CorridaDto Chamar(ChamarCorridaRequest request)
+        public ChamarCorridaDto Chamar(ChamarCorridaRequest request)
         {
-            var response = new CorridaDto();
+            var response = new ChamarCorridaDto();
 
             var veiculo = ChamarVeiculo();
 
@@ -61,7 +62,7 @@ namespace MeLevaAi.Api.Services
             passageiro.IniciarCorrida();
             motorista.IniciarCorrida();
 
-            response = corrida.ToCorridaDto(passageiro, motorista);
+            response = corrida.ToChamarCorridaDto();
 
             return response;
         }
@@ -83,6 +84,29 @@ namespace MeLevaAi.Api.Services
             }
 
             return null;
+        }
+
+        public CorridaDto Iniciar(Guid corridaId)
+        {
+            var response = new CorridaDto();
+
+            var corrida = _corridaRepository.Obter(corridaId);
+
+            if (corrida is null)
+            {
+                response.AddNotification(new Validations.Notification("Corrida não encontrada."));
+                return response;
+            }
+
+            var distanciaEmKm = CalculadorDistancia.CalcularDistancia(corrida.PontoInicial, corrida.PontoFinal);
+
+            var tempoEstimado = (distanciaEmKm / 30 * 60 * 60);
+
+            var valorEstimado = tempoEstimado * 0.2;
+
+            corrida.AtualizarValorEstimado(valorEstimado);
+
+            return response;
         }
 
         public CorridaDto AvaliarPassageiro(Guid corridaId, AvaliarPessoaRequest request)
