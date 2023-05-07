@@ -21,7 +21,7 @@ namespace MeLevaAi.Api.Contracts.Requests
         [Required(ErrorMessage = "O campo Cpf é obrigatório.")]
         public string Cpf { get; set; }
 
-        [Required(ErrorMessage = "O campo Categoria do motorista é obrigatório.")]
-        public Categoria Categoria { get; set; }
+        [Required(ErrorMessage = "O campo Carteira de Habilitação é obrigatório.")]
+        public CarteiraDeHabilitacao CarteiraDeHabilitacao { get; set; }
     }
 }
