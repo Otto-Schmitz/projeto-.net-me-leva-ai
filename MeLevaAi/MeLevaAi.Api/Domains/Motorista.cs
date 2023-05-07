@@ -1,4 +1,4 @@
-﻿using MeLevaAi.Api.Domain;
+﻿using MeLevaAi.Api.Domains;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,13 +6,15 @@ namespace MeLevaAi.Api.Domains
 {
     public partial class Motorista : Pessoa
     {
+        public CarteiraDeHabilitacao CarteiraDeHabilitacao { get; set; }
+
+        public List<Corrida> Corridas { get; init; } = new List<Corrida>();
+
         public Motorista(string nome, string email, DateTime dataNascimento, string cpf, CarteiraDeHabilitacao carteiraDeHabilitacao)
             : base(nome, email, dataNascimento, cpf)
         {
             CarteiraDeHabilitacao = carteiraDeHabilitacao;
         }
-
-        public CarteiraDeHabilitacao CarteiraDeHabilitacao { get; set; }
 
         public Motorista Alterar(Motorista motorista)
         {
@@ -47,6 +49,26 @@ namespace MeLevaAi.Api.Domains
         {
             Saldo += valor;
             return this;
+        }
+
+        public void AdicionarCorrida(Corrida corrida)
+        {
+            Corridas.Add(corrida);
+        }
+
+        public void RemoverCorrida(Corrida corrida)
+        {
+            Corridas.Remove(corrida);
+        }
+
+        public Corrida? ObterCorrida(Guid id)
+            => Corridas.FirstOrDefault(v => v.CorridaID == id);
+
+
+        public void AlterarCorrida(Corrida corrida)
+        {
+            RemoverCorrida(ObterCorrida(corrida.CorridaID));
+            AdicionarCorrida(corrida);
         }
     }
 

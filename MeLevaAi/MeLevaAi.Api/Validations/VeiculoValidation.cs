@@ -1,4 +1,4 @@
-﻿using MeLevaAi.Api.Domain;
+﻿using MeLevaAi.Api.Domains;
 using MeLevaAi.Api.Domains;
 
 namespace MeLevaAi.Api.Validations

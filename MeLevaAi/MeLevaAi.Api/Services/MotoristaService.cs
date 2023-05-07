@@ -1,6 +1,6 @@
 ﻿using MeLevaAi.Api.Contracts.Requests;
 using MeLevaAi.Api.Contracts.Responses;
-using MeLevaAi.Api.Domain;
+using MeLevaAi.Api.Domains;
 using MeLevaAi.Api.Mappers;
 using MeLevaAi.Api.Repositories;
 using MeLevaAi.Api.Validations;
@@ -90,7 +90,7 @@ namespace MeLevaAi.Api.Services
 
             var motorista = _motoristaRepository.Obter(id);
 
-            if (motorista is null)
+            if (motorista == null)
             {
                 response.AddNotification(new Validations.Notification($"Motorista com o id {id} não encontrado."));
                 return response;
@@ -98,7 +98,7 @@ namespace MeLevaAi.Api.Services
 
             var veiculo = _veiculoRepository.ObterPorMotorista(id);
 
-            if (veiculo is not null)
+            if (veiculo != null)
             {
                 response.AddNotification(new Validations.Notification($"Não é possível remover o motorista com o id {id}, pois ele possui um veículo associado."));
                 return response;
@@ -115,7 +115,7 @@ namespace MeLevaAi.Api.Services
 
             var motoristaAtual = _motoristaRepository.Obter(id);
 
-            if (motoristaAtual is null)
+            if (motoristaAtual == null)
             {
                 response.AddNotification(new Validations.Notification($"Motorista com o id {id} não encontrado."));
                 return response;

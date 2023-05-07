@@ -1,8 +1,9 @@
-﻿using MeLevaAi.Api.Domain;
+﻿using MeLevaAi.Api.Domains;
+using MeLevaAi.Api.Validations;
 
 namespace MeLevaAi.Api.Contracts.Responses
 {
-    public class CorridaDto
+    public class CorridaDto : Notifiable
     {
         public Guid Id { get; set; }
 
@@ -13,6 +14,5 @@ namespace MeLevaAi.Api.Contracts.Responses
         public Veiculo Veiculo { get; set; }
 
         public int TempoEstimando{ get; set; }
-
     }
 }

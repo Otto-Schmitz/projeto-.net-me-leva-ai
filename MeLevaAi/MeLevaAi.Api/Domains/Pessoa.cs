@@ -25,6 +25,8 @@ namespace MeLevaAi.Api.Domains
 
         public double Saldo { get; set; } = 0;
 
+        public bool EmCorrida { get; set; } = false;
+
         public abstract bool VerificaIdadeMinima();
 
         public bool VerificaCpf()

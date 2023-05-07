@@ -9,7 +9,7 @@ namespace MeLevaAi.Api.Repositories
         public IEnumerable<Passageiro> Listar()
     => _passageiros;
 
-        public Passageiro? Obter(Guid id)
+        public Passageiro? Obter(Guid? id)
             => (from a in _passageiros where a.Id == id select a).FirstOrDefault();
 
         public Passageiro? ObterPorCpf(string cpf) 

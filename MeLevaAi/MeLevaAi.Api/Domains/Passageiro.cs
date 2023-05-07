@@ -4,6 +4,8 @@ namespace MeLevaAi.Api.Domains
 {
     public partial class Passageiro : Pessoa
     {
+        public List<Corrida> Corridas { get; init; } = new List<Corrida>();
+
         public Passageiro(string nome, string email, DateTime dataNascimento, string cpf) 
             : base(nome, email, dataNascimento, cpf) { }
 
@@ -40,6 +42,26 @@ namespace MeLevaAi.Api.Domains
         {
             Saldo += valor;
             return this;
+        }
+
+        public void AdicionarCorrida(Corrida corrida)
+        {
+            Corridas.Add(corrida);
+        }
+
+        public void RemoverCorrida(Corrida corrida)
+        {
+            Corridas.Remove(corrida);
+        }
+
+        public Corrida? ObterCorrida(Guid id)
+            =>  Corridas.FirstOrDefault(v => v.CorridaID == id);
+        
+
+        public void AlterarCorrida(Corrida corrida)
+        {
+            RemoverCorrida(ObterCorrida(corrida.CorridaID));
+            AdicionarCorrida(corrida);
         }
 
     }

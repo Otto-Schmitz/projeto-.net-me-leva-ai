@@ -1,4 +1,4 @@
-﻿namespace MeLevaAi.Api.Domain
+﻿namespace MeLevaAi.Api.Domains
 {
     public enum Categoria
     {
