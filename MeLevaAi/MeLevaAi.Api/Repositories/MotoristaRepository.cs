@@ -14,10 +14,6 @@ namespace MeLevaAi.Api.Repositories
         public Motorista? Obter(Guid id)
             => _motoristas.FirstOrDefault(v => v.Id == id);
 
-        public Motorista? ObterPorCpf(string cpf)
-            => _motoristas.FirstOrDefault(v => v.Cpf == cpf);
-
-
         public void Cadastrar(Motorista motorista)
         {
             _motoristas.Add(motorista);
