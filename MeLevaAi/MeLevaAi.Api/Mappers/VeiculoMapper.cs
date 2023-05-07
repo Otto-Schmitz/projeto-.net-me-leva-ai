@@ -7,7 +7,7 @@ namespace MeLevaAi.Api.Mappers
     public static class VeiculoMapper
     {
         public static Veiculo ToVeiculo(this AdicionarVeiculoRequest request)
-            => new(request.MotoristaId, request.Placa, request.Marca, request.Modelo, request.Ano, request.Cor, request.FotoUrl, request.QuantidadeDeLugares, request.Categoria);
+            => new(request.MotoristaId.GetValueOrDefault(), request.Placa, request.Marca, request.Modelo, request.Ano, request.Cor, request.FotoUrl, request.QuantidadeDeLugares, request.Categoria);
 
         public static VeiculoDto ToVeiculoDto(this Veiculo veiculo)
         {
