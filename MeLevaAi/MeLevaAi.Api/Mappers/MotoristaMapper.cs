@@ -21,6 +21,7 @@ namespace MeLevaAi.Api.Mappers
                 Cpf = motorista.Cpf,
                 CarteiraDeHabilitacao = motorista.CarteiraDeHabilitacao,
                 Saldo = motorista.Saldo,
+                Avaliacoes = motorista.Avaliacoes,
             };
         }
     }

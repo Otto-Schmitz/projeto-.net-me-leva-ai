@@ -6,13 +6,16 @@ namespace MeLevaAi.Api.Domains
 {
     public partial class Motorista : Pessoa
     {
+        public List<Avaliacao> Avaliacoes { get; set; }
+
+        public CarteiraDeHabilitacao CarteiraDeHabilitacao { get; set; }
+
         public Motorista(string nome, string email, DateTime dataNascimento, string cpf, CarteiraDeHabilitacao carteiraDeHabilitacao)
             : base(nome, email, dataNascimento, cpf)
         {
             CarteiraDeHabilitacao = carteiraDeHabilitacao;
+            Avaliacoes = new List<Avaliacao>();
         }
-
-        public CarteiraDeHabilitacao CarteiraDeHabilitacao { get; set; }
 
         public Motorista Alterar(Motorista motorista)
         {

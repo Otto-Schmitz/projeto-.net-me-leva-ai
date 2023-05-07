@@ -19,5 +19,7 @@ namespace MeLevaAi.Api.Contracts.Responses
         public CarteiraDeHabilitacao CarteiraDeHabilitacao { get; set; }
 
         public double Saldo { get; set; }
+
+        public List<Avaliacao> Avaliacoes { get; set; }
     }
 }

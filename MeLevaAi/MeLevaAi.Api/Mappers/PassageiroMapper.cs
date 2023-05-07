@@ -20,6 +20,7 @@ namespace MeLevaAi.Api.Mappers
                 DataNascimento = passageiro.DataNascimento,
                 Cpf = passageiro.Cpf,
                 Saldo = passageiro.Saldo,
+                Avaliacoes = passageiro.Avaliacoes,
             };
     }
 }
