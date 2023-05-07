@@ -56,6 +56,12 @@ namespace MeLevaAi.Api.Services
                 return response;
             }
 
+            if (_motoristaRepository.ObterPorCpf(novoMotorista.Cpf) != null)
+            {
+                response.AddNotification(new Validations.Notification("Motorista já existe."));
+                return response;
+            }
+
             if (!Enum.IsDefined(typeof(Categoria), request.CarteiraDeHabilitacao.Categoria))
             {
                 response.AddNotification(new Notification("Categoria inválida."));
