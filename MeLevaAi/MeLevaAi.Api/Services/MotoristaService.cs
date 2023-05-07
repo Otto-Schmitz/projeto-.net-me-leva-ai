@@ -54,7 +54,7 @@ namespace MeLevaAi.Api.Services
                 return response;
             }
 
-            if (_motoristaRepository.Obter(novoMotorista.Id) != null)
+            if (_motoristaRepository.ObterPorCpf(novoMotorista.Cpf) != null)
             {
                 response.AddNotification(new Validations.Notification("Motorista já existe."));
                 return response;

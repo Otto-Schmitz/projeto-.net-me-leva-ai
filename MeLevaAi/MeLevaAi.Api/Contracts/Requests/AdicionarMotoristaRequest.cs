@@ -11,6 +11,8 @@ namespace MeLevaAi.Api.Contracts.Requests
 
         [Required(ErrorMessage = "O campo Email é obrigatório.")]
         [MaxLength(100, ErrorMessage = "O campo Email deve ter apenas 10 caracteres.")]
+        [DataType(DataType.EmailAddress)]
+        [EmailAddress(ErrorMessage = "O Email deve ser válido.")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "O campo Data Nascimento é obrigatório.")]
