@@ -7,9 +7,10 @@ namespace MeLevaAi.Api.Mappers
     public static class PassageiroMapper
     {
         public static Passageiro ToPassageiro(this AdicionarPassageiroRequest request)
-        {
-            return new(request.Nome, request.Email, request.DataNascimento, request.Cpf);
-        }
+            => new(request.Nome, request.Email, request.DataNascimento, request.Cpf);
+
+        public static Passageiro ToAlterarPassageiro(this AlterarPassageiroRequest request)
+            => new(request.Nome, request.Email, request.DataNascimento, request.Cpf);
 
         public static PassageiroDto ToPassageiroDto(this Passageiro passageiro)
             => new PassageiroDto

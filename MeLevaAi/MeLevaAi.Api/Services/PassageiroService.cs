@@ -61,7 +61,7 @@ namespace MeLevaAi.Api.Services
             return passageiro.ToPassageiroDto();
         }
 
-        public PassageiroDto Alterar(Guid id, AdicionarPassageiroRequest request)
+        public PassageiroDto Alterar(Guid id, AlterarPassageiroRequest request)
         {
             var response = new PassageiroDto();
 
@@ -73,7 +73,7 @@ namespace MeLevaAi.Api.Services
                 return response;
             }
 
-            var passageiroNovo = request.ToPassageiro();
+            var passageiroNovo = request.ToAlterarPassageiro();
 
             passageiroAtual.Alterar(passageiroNovo);
 

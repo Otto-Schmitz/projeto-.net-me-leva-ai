@@ -58,7 +58,7 @@ namespace MeLevaAi.Api.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PassageiroDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
-        public ActionResult<PassageiroDto> Alterar(Guid id, [FromBody] AdicionarPassageiroRequest request)
+        public ActionResult<PassageiroDto> Alterar(Guid id, [FromBody] AlterarPassageiroRequest request)
         {
             var response = _passageiroService.Alterar(id, request);
 

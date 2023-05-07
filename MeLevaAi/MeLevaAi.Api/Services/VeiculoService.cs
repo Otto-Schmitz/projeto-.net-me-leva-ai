@@ -74,7 +74,7 @@ namespace MeLevaAi.Api.Services
         }
 
 
-        public VeiculoDto Alterar(Guid id, AdicionarVeiculoRequest request)
+        public VeiculoDto Alterar(Guid id, AlterarVeiculoRequest request)
         {
             var response = new VeiculoDto();
 
@@ -89,7 +89,7 @@ namespace MeLevaAi.Api.Services
 
             var motorista = _motoristaRepository.Obter(request.MotoristaId);
 
-            var veiculoAlterado = request.ToVeiculo();
+            var veiculoAlterado = request.ToAlterarVeiculo();
 
             if (motorista is null)
             {

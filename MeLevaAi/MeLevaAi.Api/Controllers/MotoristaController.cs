@@ -14,14 +14,12 @@ namespace MeLevaAi.Api.Controllers
 
         private readonly MotoristaService _motoristaService;
         private readonly VeiculoService _veiculoService;
-
-
         public MotoristaController()
         {
             _motoristaService = new MotoristaService();
             _veiculoService = new VeiculoService();
-
         }
+
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(MotoristaDto))]
@@ -31,6 +29,7 @@ namespace MeLevaAi.Api.Controllers
 
             return Ok(motoristas);
         }
+
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(MotoristaDto))]
@@ -45,6 +44,7 @@ namespace MeLevaAi.Api.Controllers
             return Ok(response);
         }
 
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AdicionarMotoristaRequest))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
@@ -58,10 +58,11 @@ namespace MeLevaAi.Api.Controllers
             return Ok(response);
         }
 
+
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(MotoristaDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
-        public ActionResult<MotoristaDto> Alterar(Guid id, [FromBody] AdicionarMotoristaRequest request)
+        public ActionResult<MotoristaDto> Alterar(Guid id, [FromBody] AlterarMotoristaRequest request)
         {
             var response = _motoristaService.Alterar(id, request);
 
@@ -70,6 +71,7 @@ namespace MeLevaAi.Api.Controllers
 
             return Ok(response);
         }
+
 
         [HttpPut("{id}/sacar")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(MotoristaDto))]
@@ -84,6 +86,7 @@ namespace MeLevaAi.Api.Controllers
             return Ok(response);
         }
 
+
         [HttpPut("{id}/depositar")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(MotoristaDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
@@ -96,6 +99,7 @@ namespace MeLevaAi.Api.Controllers
 
             return Ok(response);
         }
+
 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(MotoristaDto))]
