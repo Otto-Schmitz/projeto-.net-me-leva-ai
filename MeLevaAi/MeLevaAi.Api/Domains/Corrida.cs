@@ -18,11 +18,13 @@ namespace MeLevaAi.Api.Domains
 
         public Avaliacao AvaliacaoDoPassageiro { get; private set; }
 
-        public int TempoEstimado { get; init; } = new Random().Next(5, 10);
+        public int TempoEstimadoChegada { get; init; } = new Random().Next(5, 10);
+
+        public double TempoEstimadoDestino { get; private set; }
 
         public double ValorEstimado { get; private set; }
 
-        public StatusCorrida StatusCorrida { get; set; } = StatusCorrida.Solicitada;
+        public StatusCorrida StatusCorrida { get; private set; } = StatusCorrida.Solicitada;
 
         public Corrida(Guid passageiroId, Veiculo veiculo, Coordenadas pontoInicial, Coordenadas pontoFinal)
         {
@@ -36,6 +38,18 @@ namespace MeLevaAi.Api.Domains
         {
             ValorEstimado = valor;
         }
+
+        public void AtualizarTempoEstimadoDestino(double tempo)
+        {
+            TempoEstimadoDestino = tempo;
+        }
+
+        public void AtualizarStatusCorrida(StatusCorrida statusCorrida)
+        {
+            StatusCorrida = statusCorrida;
+        }
+
+
     }
 
     public class Coordenadas

@@ -20,12 +20,25 @@ namespace MeLevaAi.Api.Controllers
             _corridaService = new CorridaService();
         }
 
-        [HttpPost]
+        [HttpPost("chamar")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChamarCorridaRequest))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
-        public ActionResult<CorridaDto> Chamar([FromBody] ChamarCorridaRequest request)
+        public ActionResult<ChamarCorridaDto> Chamar([FromBody] ChamarCorridaRequest request)
         {
             var response = _corridaService.Chamar(request);
+
+            if (!response.IsValid())
+                return NotFound(new ErrorResponse(response.Notifications));
+
+            return Ok(response);
+        }
+
+        [HttpPut("{id}/iniciar")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ChamarCorridaRequest))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
+        public ActionResult<IniciarCorridaDto> Iniciar(Guid id)
+        {
+            var response = _corridaService.Iniciar(id);
 
             if (!response.IsValid())
                 return NotFound(new ErrorResponse(response.Notifications));

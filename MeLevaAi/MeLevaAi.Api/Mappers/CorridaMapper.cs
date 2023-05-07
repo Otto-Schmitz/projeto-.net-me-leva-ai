@@ -16,7 +16,7 @@ namespace MeLevaAi.Api.Mappers
                 NomePassageiro = passageiro.Nome,
                 NomeMotorista = motorista.Nome,
                 Veiculo = corrida.Veiculo,
-                TempoEstimando = corrida.TempoEstimado
+                TempoEstimando = corrida.TempoEstimadoChegada
             };
 
         public static ChamarCorridaDto ToChamarCorridaDto(this Corrida corrida)
@@ -24,8 +24,15 @@ namespace MeLevaAi.Api.Mappers
             {
                 CorridaID = corrida.CorridaID,
                 Veiculo = corrida.Veiculo,
-                TempoEstimado = corrida.TempoEstimado,
+                TempoEstimado = corrida.TempoEstimadoChegada,
             };
+
+        public static IniciarCorridaDto ToIniciarCorridaDto(this Corrida corrida)
+    => new()
+    {
+        TempoEstimadoDestino = corrida.TempoEstimadoDestino,
+        ValorEstimado = corrida.ValorEstimado,
+    };
     }
 
 }

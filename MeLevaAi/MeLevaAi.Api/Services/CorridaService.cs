@@ -86,9 +86,9 @@ namespace MeLevaAi.Api.Services
             return null;
         }
 
-        public CorridaDto Iniciar(Guid corridaId)
+        public IniciarCorridaDto Iniciar(Guid corridaId)
         {
-            var response = new CorridaDto();
+            var response = new IniciarCorridaDto();
 
             var corrida = _corridaRepository.Obter(corridaId);
 
@@ -100,13 +100,17 @@ namespace MeLevaAi.Api.Services
 
             var distanciaEmKm = CalculadorDistancia.CalcularDistancia(corrida.PontoInicial, corrida.PontoFinal);
 
-            var tempoEstimado = (distanciaEmKm / 30 * 60 * 60);
+            var tempoEstimadoDestino = (distanciaEmKm / 30 * 60 * 60);
 
-            var valorEstimado = tempoEstimado * 0.2;
+            var valorEstimado = tempoEstimadoDestino * 0.2;
 
             corrida.AtualizarValorEstimado(valorEstimado);
 
-            return response;
+            corrida.AtualizarStatusCorrida(StatusCorrida.Iniciada);
+
+            corrida.AtualizarTempoEstimadoDestino(tempoEstimadoDestino);
+
+            return corrida.ToIniciarCorridaDto();
         }
 
         public CorridaDto AvaliarPassageiro(Guid corridaId, AvaliarPessoaRequest request)
