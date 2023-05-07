@@ -1,7 +1,9 @@
 ﻿using MeLevaAi.Api.Contracts.Requests;
 using MeLevaAi.Api.Contracts.Responses;
+using MeLevaAi.Api.Domain;
 using MeLevaAi.Api.Mappers;
 using MeLevaAi.Api.Repositories;
+using MeLevaAi.Api.Validations;
 
 namespace MeLevaAi.Api.Services
 {
@@ -54,9 +56,9 @@ namespace MeLevaAi.Api.Services
             //    return response;
             //}
 
-            if (_motoristaRepository.Obter(novoMotorista.Id) != null)
+            if (!Enum.IsDefined(typeof(Categoria), request.CarteiraDeHabilitacao.Categoria))
             {
-                response.AddNotification(new Validations.Notification("Motorista já existe."));
+                response.AddNotification(new Notification("Categoria inválida."));
                 return response;
             }
 

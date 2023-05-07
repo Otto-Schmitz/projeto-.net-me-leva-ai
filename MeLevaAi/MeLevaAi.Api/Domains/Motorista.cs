@@ -1,20 +1,19 @@
 ﻿using MeLevaAi.Api.Domain;
-using System.Text.RegularExpressions;
+using System;
 
 namespace MeLevaAi.Api.Domains
 {
     public partial class Motorista : Pessoa
     {
-
-        public Motorista(string nome, string email, DateTime dataNascimento, string cpf, Categoria categoria)
+        public Motorista(string nome, string email, DateTime dataNascimento, string cpf, CarteiraDeHabilitacao carteiraDeHabilitacao)
             : base(nome, email, dataNascimento, cpf)
         {
-            Categoria = categoria;
+            CarteiraDeHabilitacao = carteiraDeHabilitacao;
         }
 
         public Guid Id { get; init; } = Guid.NewGuid();
 
-        public Categoria Categoria { get; set; }
+        public CarteiraDeHabilitacao CarteiraDeHabilitacao { get; set; }
 
         public Motorista Alterar(Motorista motorista)
         {
@@ -22,7 +21,7 @@ namespace MeLevaAi.Api.Domains
             Email = motorista.Email;
             DataNascimento = motorista.DataNascimento;
             Cpf = motorista.Cpf;
-            Categoria = motorista.Categoria;
+            CarteiraDeHabilitacao = motorista.CarteiraDeHabilitacao;
 
             return this;
         }
