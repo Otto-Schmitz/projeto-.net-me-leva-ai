@@ -33,5 +33,16 @@ namespace MeLevaAi.Api.Domains
         {
             return CpfLibrary.Cpf.Check(Cpf);
         }
+
+        public void IniciarCorrida()
+        {
+            EmCorrida = true;
+        }
+
+        public void FinalizarCorrida()
+        {
+            EmCorrida = false;
+        }
+
     }
 }

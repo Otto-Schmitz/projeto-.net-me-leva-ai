@@ -23,6 +23,7 @@ namespace MeLevaAi.Api.Mappers
                 Cpf = passageiro.Cpf,
                 Saldo = passageiro.Saldo,
                 Avaliacoes = passageiro.Avaliacoes,
+                EmCorrida = passageiro.EmCorrida,
             };
     }
 }

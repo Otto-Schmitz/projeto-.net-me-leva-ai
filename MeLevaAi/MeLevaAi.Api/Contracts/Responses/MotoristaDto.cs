@@ -21,5 +21,7 @@ namespace MeLevaAi.Api.Contracts.Responses
         public double Saldo { get; set; }
 
         public List<Avaliacao> Avaliacoes { get; set; }
+
+        public bool EmCorrida { get; set; }
     }
 }

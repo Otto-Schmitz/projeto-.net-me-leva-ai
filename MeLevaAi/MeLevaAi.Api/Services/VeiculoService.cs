@@ -60,7 +60,7 @@ namespace MeLevaAi.Api.Services
                 return response;
             }
 
-            if (!VeiculoValidation.VerificarCategoria(novoVeiculo, motorista))
+            if (!VerificarCategoria(novoVeiculo, motorista))
             {
                 var response = new VeiculoDto();
 
@@ -99,7 +99,7 @@ namespace MeLevaAi.Api.Services
                 return response;
             }
 
-            if (!VeiculoValidation.VerificarCategoria(veiculoAlterado, motorista))
+            if (!VerificarCategoria(veiculoAlterado, motorista))
             {
                 response.AddNotification(new Validations.Notification("A categoria do veículo não é compatível com a categoria da carteira de habilitação do motorista."));
 
@@ -129,6 +129,9 @@ namespace MeLevaAi.Api.Services
             return response;
         }
 
-
+        public static bool VerificarCategoria(Veiculo veiculo, Motorista motorista)
+        {
+            return veiculo.Categoria == motorista.CarteiraDeHabilitacao.Categoria;
+        }
     }
 }

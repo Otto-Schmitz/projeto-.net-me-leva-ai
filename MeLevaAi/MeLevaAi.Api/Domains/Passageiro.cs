@@ -6,9 +6,6 @@ namespace MeLevaAi.Api.Domains
     {
         public List<Corrida> Corridas { get; init; } = new List<Corrida>();
 
-        public Passageiro(string nome, string email, DateTime dataNascimento, string cpf) 
-            : base(nome, email, dataNascimento, cpf) { }
-
         public List<Avaliacao> Avaliacoes { get; set; }
 
         public Passageiro(string nome, string email, DateTime dataNascimento, string cpf)
@@ -62,8 +59,8 @@ namespace MeLevaAi.Api.Domains
         }
 
         public Corrida? ObterCorrida(Guid id)
-            =>  Corridas.FirstOrDefault(v => v.CorridaID == id);
-        
+            => Corridas.FirstOrDefault(v => v.CorridaID == id);
+
 
         public void AlterarCorrida(Corrida corrida)
         {

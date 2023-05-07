@@ -16,9 +16,10 @@ namespace MeLevaAi.Api.Services
 
         private readonly PassageiroRepository _passageiroRepository;
 
-   
-        public CorridaService() {
-            _corridaRepository = new CorridaRepository();       
+
+        public CorridaService()
+        {
+            _corridaRepository = new CorridaRepository();
             _veiculoRepository = new VeiculoRepository();
             _motoristaRepository = new MotoristaRepository();
             _passageiroRepository = new PassageiroRepository();
@@ -30,7 +31,8 @@ namespace MeLevaAi.Api.Services
 
             var veiculo = ChamarVeiculo();
 
-            if (veiculo == null) {
+            if (veiculo == null)
+            {
                 response.AddNotification(new Validations.Notification("Nenhum veículo disponível foi encontrados."));
                 return response;
             }
@@ -56,29 +58,31 @@ namespace MeLevaAi.Api.Services
             passageiro.AdicionarCorrida(corrida);
             motorista.AdicionarCorrida(corrida);
 
+            passageiro.IniciarCorrida();
+            motorista.IniciarCorrida();
+
             response = corrida.ToCorridaDto(passageiro, motorista);
 
             return response;
         }
-         
+
         private Veiculo? ChamarVeiculo()
         {
             var veiculos = _veiculoRepository.Listar().ToArray();
 
-            var veiculo = new Veiculo();
-
-            foreach (var v in veiculos)
+            foreach (var veiculo in veiculos)
             {
-                var motorista = _motoristaRepository.Obter(v.MotoristaId.GetValueOrDefault());
+                var motorista = _motoristaRepository.Obter(veiculo.MotoristaId.GetValueOrDefault());
 
-                if (motorista.CarteiraDeHabilitacao.DataVencimento > DateTime.Now)
-                    continue;
+                if (motorista.CarteiraDeHabilitacao.DataVencimento < DateTime.Now)
+                    return null;
                 if (motorista.EmCorrida)
-                    continue;
-                veiculo = v;
+                    return null;
+
+                return veiculo;
             }
 
-            return veiculo;
+            return null;
         }
 
         public CorridaDto AvaliarPassageiro(Guid corridaId, AvaliarPessoaRequest request)
