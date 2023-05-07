@@ -29,7 +29,7 @@ namespace MeLevaAi.Api.Services
                 return response;
             }
 
-            if (_passageiroRepository.ObterPorCpf(novoPassageiro.Cpf) != null) {
+            if (_passageiroRepository.Obter(novoPassageiro.Id) != null) {
                 response.AddNotification(new Validations.Notification("Passageiro já existe."));
                 return response;
             }

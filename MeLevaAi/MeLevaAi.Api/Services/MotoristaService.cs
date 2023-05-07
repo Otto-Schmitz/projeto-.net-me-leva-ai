@@ -54,23 +54,11 @@ namespace MeLevaAi.Api.Services
             //    return response;
             //}
 
-            if (!novoMotorista.VerificaCpf())
-            {
-                response.AddNotification(new Validations.Notification("Cpf inválido."));
-                return response;
-            }
-
-            if (_motoristaRepository.ObterPorCpf(novoMotorista.Cpf) != null)
-            {
-                response.AddNotification(new Validations.Notification("Motorista já existe."));
-                return response;
-            }
-
-            if (!Enum.IsDefined(typeof(Categoria), request.CarteiraDeHabilitacao.Categoria))
-            {
-                response.AddNotification(new Notification("Categoria inválida."));
-                return response;
-            }
+            //if (!novoMotorista.VerificaCpf())
+            //{
+            //    response.AddNotification(new Validations.Notification("Cpf inválido."));
+            //    return response;
+            //}
 
             _motoristaRepository.Cadastrar(novoMotorista);
 
