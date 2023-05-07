@@ -13,6 +13,8 @@ namespace MeLevaAi.Api.Domains
             Cpf = cpf;
         }
 
+        public Guid Id { get; init; } = Guid.NewGuid();
+
         public string Nome { get; set; }
 
         public string Email { get; set; }

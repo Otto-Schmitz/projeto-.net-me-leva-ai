@@ -13,5 +13,6 @@ namespace MeLevaAi.Api.Contracts.Responses
         public Veiculo Veiculo { get; set; }
 
         public int TempoEstimando{ get; set; }
+
     }
 }

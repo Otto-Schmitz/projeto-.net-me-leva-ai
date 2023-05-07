@@ -7,7 +7,6 @@ namespace MeLevaAi.Api.Domains
         public Passageiro(string nome, string email, DateTime dataNascimento, string cpf) 
             : base(nome, email, dataNascimento, cpf) { }
 
-        public Guid Id { get; init; } = Guid.NewGuid();
 
         public Passageiro Alterar(Passageiro passageiro)
         {

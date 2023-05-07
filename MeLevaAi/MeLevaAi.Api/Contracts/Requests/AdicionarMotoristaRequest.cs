@@ -1,4 +1,5 @@
 ﻿using MeLevaAi.Api.Domain;
+using MeLevaAi.Api.Domains;
 using System.ComponentModel.DataAnnotations;
 
 namespace MeLevaAi.Api.Contracts.Requests
