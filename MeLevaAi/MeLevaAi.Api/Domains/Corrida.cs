@@ -49,7 +49,15 @@ namespace MeLevaAi.Api.Domains
             StatusCorrida = statusCorrida;
         }
 
+        public void AtualizarAvaliacaoPassageiro(Avaliacao avaliacaoDoPassageiro)
+        {
+            AvaliacaoDoPassageiro = avaliacaoDoPassageiro;
+        }
 
+        public void AtualizarAvaliacaoMotorista(Avaliacao avaliacaoDoMotorista)
+        {
+            AvaliacaoDoMotorista = avaliacaoDoMotorista;
+        }
     }
 
     public class Coordenadas

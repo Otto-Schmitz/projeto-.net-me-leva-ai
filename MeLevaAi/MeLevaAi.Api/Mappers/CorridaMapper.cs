@@ -28,11 +28,29 @@ namespace MeLevaAi.Api.Mappers
             };
 
         public static IniciarCorridaDto ToIniciarCorridaDto(this Corrida corrida)
-    => new()
-    {
-        TempoEstimadoDestino = corrida.TempoEstimadoDestino,
-        ValorEstimado = corrida.ValorEstimado,
-    };
+            => new()
+            {
+                TempoEstimadoDestino = corrida.TempoEstimadoDestino,
+                ValorEstimado = corrida.ValorEstimado,
+            };
+
+        public static AvaliarMotoristaDto ToAvaliarMotoristaDto(this Corrida corrida, Motorista motorista)
+            => new()
+            {
+                CorridaId = corrida.CorridaID,
+                NomeMotorista = motorista.Nome,
+                Nota = corrida.AvaliacaoDoMotorista.Nota,
+                Descricao = corrida.AvaliacaoDoMotorista.Descricao,
+            };
+
+        public static AvaliarPassageiroDto ToAvaliarPassageiroDto(this Corrida corrida, Passageiro passageiro)
+            => new()
+            {
+                CorridaId = corrida.CorridaID,
+                NomePassageiro = passageiro.Nome,
+                Nota = corrida.AvaliacaoDoPassageiro.Nota,
+                Descricao = corrida.AvaliacaoDoPassageiro.Descricao,
+            };
     }
 
 }

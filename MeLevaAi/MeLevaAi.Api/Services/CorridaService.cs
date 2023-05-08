@@ -17,6 +17,15 @@ namespace MeLevaAi.Api.Services
 
         private readonly PassageiroRepository _passageiroRepository;
 
+        private readonly double VALOR_POR_SEGUNDO = 0.2;
+
+        private readonly double VELOCIDADE_EM_KMH = 30;
+
+        private readonly double SEGUNDOS_EM_1H = 60 * 60;
+
+        private readonly double NOTA_MINIMA = 1;
+
+        private readonly double NOTA_MAXIMA = 5;
 
         public CorridaService()
         {
@@ -54,11 +63,11 @@ namespace MeLevaAi.Api.Services
             }
 
             var corrida = request.ToCorrida(passageiro, veiculo);
+
             _corridaRepository.Adicionar(corrida);
 
             passageiro.AdicionarCorrida(corrida);
             motorista.AdicionarCorrida(corrida);
-
             passageiro.IniciarCorrida();
             motorista.IniciarCorrida();
 
@@ -89,7 +98,6 @@ namespace MeLevaAi.Api.Services
         public IniciarCorridaDto Iniciar(Guid corridaId)
         {
             var response = new IniciarCorridaDto();
-
             var corrida = _corridaRepository.Obter(corridaId);
 
             if (corrida is null)
@@ -99,50 +107,62 @@ namespace MeLevaAi.Api.Services
             }
 
             var distanciaEmKm = CalculadorDistancia.CalcularDistancia(corrida.PontoInicial, corrida.PontoFinal);
-
-            var tempoEstimadoDestino = (distanciaEmKm / 30 * 60 * 60);
-
-            var valorEstimado = tempoEstimadoDestino * 0.2;
+            var tempoEstimadoDestino = (distanciaEmKm / VELOCIDADE_EM_KMH * SEGUNDOS_EM_1H);
+            var valorEstimado = tempoEstimadoDestino * VALOR_POR_SEGUNDO;
 
             corrida.AtualizarValorEstimado(valorEstimado);
-
             corrida.AtualizarStatusCorrida(StatusCorrida.Iniciada);
-
             corrida.AtualizarTempoEstimadoDestino(tempoEstimadoDestino);
 
             return corrida.ToIniciarCorridaDto();
         }
 
-        public CorridaDto AvaliarPassageiro(Guid corridaId, AvaliarPessoaRequest request)
+        public AvaliarPassageiroDto AvaliarPassageiro(Guid corridaId, AvaliarPessoaRequest request)
         {
-            var response = new CorridaDto();
+            var response = new AvaliarPassageiroDto();
 
             var corrida = _corridaRepository.Obter(corridaId);
 
             if (corrida is null)
             {
                 response.AddNotification(new Validations.Notification($"Corrida com o id {corridaId} não encontrada."));
+                return response;
+            }
+
+            //if (corrida.StatusCorrida is not StatusCorrida.Finalizada)
+            //{
+            //    response.AddNotification(new Validations.Notification($"Corrida com o id {corridaId} precisa ser finalizada para avaliar o passageiro."));
+            //    return response;
+            //}
+
+            if (request.Nota < NOTA_MINIMA || request.Nota > NOTA_MAXIMA)
+            {
+                response.AddNotification(new Validations.Notification($"A nota deve estar entre {NOTA_MINIMA} e {NOTA_MAXIMA}."));
                 return response;
             }
 
             var passageiro = _passageiroRepository.Obter(corrida.PassageiroId);
 
-            if (request.Nota < 1 || request.Nota > 5)
+            if (passageiro is null)
             {
-                response.AddNotification(new Validations.Notification($"A nota deve estar entre 1 e 5."));
+                response.AddNotification(new Validations.Notification($"Passageiro não encontrado."));
                 return response;
             }
 
             var avaliacao = new Avaliacao(pessoaId: passageiro.Id, corridaId: corrida.CorridaID, nota: request.Nota, descricao: request.Descricao);
 
+            corrida.AtualizarAvaliacaoPassageiro(avaliacao);
+
             passageiro.Avaliacoes.Add(avaliacao);
+
+            response = corrida.ToAvaliarPassageiroDto(passageiro);
 
             return response;
         }
 
-        public CorridaDto AvaliarMotorista(Guid corridaId, AvaliarPessoaRequest request)
+        public AvaliarMotoristaDto AvaliarMotorista(Guid corridaId, AvaliarPessoaRequest request)
         {
-            var response = new CorridaDto();
+            var response = new AvaliarMotoristaDto();
 
             var corrida = _corridaRepository.Obter(corridaId);
 
@@ -152,17 +172,33 @@ namespace MeLevaAi.Api.Services
                 return response;
             }
 
+            //if (corrida.StatusCorrida is not StatusCorrida.Finalizada)
+            //{
+            //    response.AddNotification(new Validations.Notification($"Corrida com o id {corridaId} precisa ser finalizada para avaliar o motorista."));
+            //    return response;
+            //}
+
             var motorista = _motoristaRepository.Obter(corrida.Veiculo.MotoristaId);
 
-            if (request.Nota < 1 || request.Nota > 5)
+            if (motorista is null)
             {
-                response.AddNotification(new Validations.Notification($"A nota deve estar entre 1 e 5."));
+                response.AddNotification(new Validations.Notification($"Motorista não encontrado."));
+                return response;
+            }
+
+            if (request.Nota < NOTA_MINIMA || request.Nota > NOTA_MAXIMA)
+            {
+                response.AddNotification(new Validations.Notification($"A nota deve estar entre {NOTA_MINIMA} e {NOTA_MAXIMA}."));
                 return response;
             }
 
             var avaliacao = new Avaliacao(pessoaId: motorista.Id, corridaId: corrida.CorridaID, nota: request.Nota, descricao: request.Descricao);
 
+            corrida.AtualizarAvaliacaoMotorista(avaliacao);
+
             motorista.Avaliacoes.Add(avaliacao);
+
+            response = corrida.ToAvaliarMotoristaDto(motorista);
 
             return response;
         }

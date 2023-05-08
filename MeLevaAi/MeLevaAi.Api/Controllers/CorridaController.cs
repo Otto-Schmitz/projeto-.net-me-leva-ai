@@ -46,6 +46,32 @@ namespace MeLevaAi.Api.Controllers
             return Ok(response);
         }
 
+        [HttpPut("{id}/avaliar/passageiro")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AvaliarPessoaRequest))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
+        public ActionResult<AvaliarPassageiroDto> AvaliarPassageiro(Guid id, [FromBody] AvaliarPessoaRequest request)
+        {
+            var response = _corridaService.AvaliarPassageiro(id, request);
+
+            if (!response.IsValid())
+                return NotFound(new ErrorResponse(response.Notifications));
+
+            return Ok(response);
+        }
+
+        [HttpPut("{id}/avaliar/motorista")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AvaliarPessoaRequest))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
+        public ActionResult<AvaliarMotoristaDto> AvaliarMotorista(Guid id, [FromBody] AvaliarPessoaRequest request)
+        {
+            var response = _corridaService.AvaliarMotorista(id, request);
+
+            if (!response.IsValid())
+                return NotFound(new ErrorResponse(response.Notifications));
+
+            return Ok(response);
+        }
+
 
     }
 
