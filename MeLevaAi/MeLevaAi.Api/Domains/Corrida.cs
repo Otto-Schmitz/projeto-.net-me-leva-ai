@@ -1,4 +1,4 @@
-﻿using MeLevaAi.Api.Domains;
+using MeLevaAi.Api.Domains;
 
 namespace MeLevaAi.Api.Domains
 {
@@ -38,8 +38,8 @@ namespace MeLevaAi.Api.Domains
             Veiculo = veiculo;
             PontoInicial = pontoInicial;
             PontoFinal = pontoFinal;
-        }
-
+        }        
+        
         public void AtualizarValorEstimado(double valor)
         {
             ValorEstimado = valor;
@@ -55,6 +55,16 @@ namespace MeLevaAi.Api.Domains
             StatusCorrida = statusCorrida;
         }
 
+        public void AtualizarAvaliacaoPassageiro(Avaliacao avaliacaoDoPassageiro)
+        {
+            AvaliacaoDoPassageiro = avaliacaoDoPassageiro;
+        }
+
+        public void AtualizarAvaliacaoMotorista(Avaliacao avaliacaoDoMotorista)
+        {
+            AvaliacaoDoMotorista = avaliacaoDoMotorista;
+        }
+        
         public void AdicionarTempoInicial(DateTime tempoInicial)
         {
             TempoInicial = tempoInicial;

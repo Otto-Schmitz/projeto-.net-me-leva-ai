@@ -1,4 +1,4 @@
-﻿using MeLevaAi.Api.Contracts.Requests;
+using MeLevaAi.Api.Contracts.Requests;
 using MeLevaAi.Api.Contracts.Responses;
 using MeLevaAi.Api.Domains;
 
@@ -39,6 +39,24 @@ namespace MeLevaAi.Api.Mappers
             {
                 CorridaId = corrida.CorridaId,
                 Valor = corrida.ValorFinal
+            };
+
+        public static AvaliarMotoristaDto ToAvaliarMotoristaDto(this Corrida corrida, Motorista motorista)
+            => new()
+            {
+                CorridaId = corrida.CorridaID,
+                NomeMotorista = motorista.Nome,
+                Nota = corrida.AvaliacaoDoMotorista.Nota,
+                Descricao = corrida.AvaliacaoDoMotorista.Descricao,
+            };
+
+        public static AvaliarPassageiroDto ToAvaliarPassageiroDto(this Corrida corrida, Passageiro passageiro)
+            => new()
+            {
+                CorridaId = corrida.CorridaID,
+                NomePassageiro = passageiro.Nome,
+                Nota = corrida.AvaliacaoDoPassageiro.Nota,
+                Descricao = corrida.AvaliacaoDoPassageiro.Descricao,
             };
     }
 
