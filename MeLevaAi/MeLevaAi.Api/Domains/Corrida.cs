@@ -4,7 +4,7 @@ namespace MeLevaAi.Api.Domains
 {
     public class Corrida
     {
-        public Guid CorridaID { get; init; } = Guid.NewGuid();
+        public Guid CorridaId { get; init; } = Guid.NewGuid();
 
         public Guid PassageiroId { get; private set; }
 
@@ -24,7 +24,13 @@ namespace MeLevaAi.Api.Domains
 
         public double ValorEstimado { get; private set; }
 
+        public double ValorFinal { get; private set; }
+
         public StatusCorrida StatusCorrida { get; private set; } = StatusCorrida.Solicitada;
+
+        public DateTime TempoInicial { get; private set; }
+
+        public string TempoFinal { get; private set; }
 
         public Corrida(Guid passageiroId, Veiculo veiculo, Coordenadas pontoInicial, Coordenadas pontoFinal)
         {
@@ -49,7 +55,20 @@ namespace MeLevaAi.Api.Domains
             StatusCorrida = statusCorrida;
         }
 
+        public void AdicionarTempoInicial(DateTime tempoInicial)
+        {
+            TempoInicial = tempoInicial;
+        }
 
+        public void AdicionarTempoFinal(string tempoFinal)
+        {
+            TempoFinal = tempoFinal;
+        }
+
+        public void AdicionarValorFinal(double valorFinal)
+        {
+            ValorFinal = valorFinal;
+        }
     }
 
     public class Coordenadas

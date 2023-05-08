@@ -46,6 +46,18 @@ namespace MeLevaAi.Api.Controllers
             return Ok(response);
         }
 
+        [HttpPut("{id}/finalizar")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FinalizarCorridaDto))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
+        public ActionResult<FinalizarCorridaDto> Finalizar(Guid id)
+        {
+            var response = _corridaService.Finalizar(id);
+
+            if (!response.IsValid())
+                return NotFound(new ErrorResponse(response.Notifications));
+
+            return Ok(response);
+        }
 
     }
 
