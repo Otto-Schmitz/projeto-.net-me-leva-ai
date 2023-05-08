@@ -1,6 +1,6 @@
 ﻿using MeLevaAi.Api.Contracts.Requests;
 using MeLevaAi.Api.Contracts.Responses;
-using MeLevaAi.Api.Domain;
+using MeLevaAi.Api.Domains;
 
 namespace MeLevaAi.Api.Mappers
 {
@@ -9,9 +9,11 @@ namespace MeLevaAi.Api.Mappers
         public static Veiculo ToVeiculo(this AdicionarVeiculoRequest request)
             => new(request.MotoristaId, request.Placa, request.Marca, request.Modelo, request.Ano, request.Cor, request.FotoUrl, request.QuantidadeDeLugares, request.Categoria);
 
+        public static Veiculo ToAlterarVeiculo(this AlterarVeiculoRequest request)
+            => new(request.MotoristaId, request.Placa, request.Marca, request.Modelo, request.Ano, request.Cor, request.FotoUrl, request.QuantidadeDeLugares, request.Categoria);
+
         public static VeiculoDto ToVeiculoDto(this Veiculo veiculo)
-        {
-            return new VeiculoDto
+            => new()
             {
                 Id = veiculo.Id,
                 MotoristaId = veiculo.MotoristaId,
@@ -24,6 +26,6 @@ namespace MeLevaAi.Api.Mappers
                 QuantidadeDeLugares = veiculo.QuantidadeDeLugares,
                 Categoria = veiculo.Categoria
             };
-        }
+        
     }
 }

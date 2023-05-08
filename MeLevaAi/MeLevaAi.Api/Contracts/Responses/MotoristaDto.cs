@@ -1,4 +1,5 @@
-﻿using MeLevaAi.Api.Domain;
+﻿using MeLevaAi.Api.Domains;
+using MeLevaAi.Api.Domains;
 using MeLevaAi.Api.Validations;
 
 namespace MeLevaAi.Api.Contracts.Responses
@@ -18,5 +19,9 @@ namespace MeLevaAi.Api.Contracts.Responses
         public CarteiraDeHabilitacao CarteiraDeHabilitacao { get; set; }
 
         public double Saldo { get; set; }
+
+        public List<Avaliacao> Avaliacoes { get; set; }
+
+        public bool EmCorrida { get; set; }
     }
 }

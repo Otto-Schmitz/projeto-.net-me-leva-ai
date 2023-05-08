@@ -17,19 +17,20 @@ namespace MeLevaAi.Api.Services
 
             var response = new PassageiroDto();
 
-            if (!novoPassageiro.VerificaIdadeMinima())
-            {
-                response.AddNotification(new Validations.Notification("Idade mínima é de 16 anos."));
-                return response;
-            }
+            //if (!novoPassageiro.VerificaIdadeMinima())
+            //{
+            //    response.AddNotification(new Validations.Notification("Idade mínima é de 16 anos."));
+            //    return response;
+            //}
 
-            if (!novoPassageiro.VerificaCpf())
-            {
-                response.AddNotification(new Validations.Notification("Cpf inválido."));
-                return response;
-            }
+            //if (!novoPassageiro.VerificaCpf())
+            //{
+            //    response.AddNotification(new Validations.Notification("Cpf inválido."));
+            //    return response;
+            //}
 
-            if (_passageiroRepository.ObterPorCpf(novoPassageiro.Cpf) != null) {
+            if (_passageiroRepository.ObterPorCpf(novoPassageiro.Cpf) != null)
+            {
                 response.AddNotification(new Validations.Notification("Passageiro já existe."));
                 return response;
             }
@@ -61,7 +62,7 @@ namespace MeLevaAi.Api.Services
             return passageiro.ToPassageiroDto();
         }
 
-        public PassageiroDto Alterar(Guid id, AdicionarPassageiroRequest request)
+        public PassageiroDto Alterar(Guid id, AlterarPassageiroRequest request)
         {
             var response = new PassageiroDto();
 
@@ -73,7 +74,7 @@ namespace MeLevaAi.Api.Services
                 return response;
             }
 
-            var passageiroNovo = request.ToPassageiro();
+            var passageiroNovo = request.ToAlterarPassageiro();
 
             passageiroAtual.Alterar(passageiroNovo);
 

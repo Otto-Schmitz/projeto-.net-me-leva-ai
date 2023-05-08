@@ -1,10 +1,9 @@
 ﻿using MeLevaAi.Api.Domains;
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace MeLevaAi.Api.Contracts.Requests
 {
-    public class AdicionarVeiculoRequest
+    public class AlterarVeiculoRequest
     {
         [Required(ErrorMessage = "O campo Id do Motorista é obrigatório.")]
         public Guid MotoristaId { get; set; }
