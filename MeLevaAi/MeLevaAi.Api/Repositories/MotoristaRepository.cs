@@ -1,5 +1,4 @@
 ﻿using MeLevaAi.Api.Domains;
-using MeLevaAi.Api.Domains;
 using System.Xml.Linq;
 
 namespace MeLevaAi.Api.Repositories

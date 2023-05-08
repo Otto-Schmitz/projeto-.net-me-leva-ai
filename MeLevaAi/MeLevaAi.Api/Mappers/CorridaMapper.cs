@@ -44,7 +44,7 @@ namespace MeLevaAi.Api.Mappers
         public static AvaliarMotoristaDto ToAvaliarMotoristaDto(this Corrida corrida, Motorista motorista)
             => new()
             {
-                CorridaId = corrida.CorridaID,
+                CorridaId = corrida.CorridaId,
                 NomeMotorista = motorista.Nome,
                 Nota = corrida.AvaliacaoDoMotorista.Nota,
                 Descricao = corrida.AvaliacaoDoMotorista.Descricao,
@@ -53,7 +53,7 @@ namespace MeLevaAi.Api.Mappers
         public static AvaliarPassageiroDto ToAvaliarPassageiroDto(this Corrida corrida, Passageiro passageiro)
             => new()
             {
-                CorridaId = corrida.CorridaID,
+                CorridaId = corrida.CorridaId,
                 NomePassageiro = passageiro.Nome,
                 Nota = corrida.AvaliacaoDoPassageiro.Nota,
                 Descricao = corrida.AvaliacaoDoPassageiro.Descricao,

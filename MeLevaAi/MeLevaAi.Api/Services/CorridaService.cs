@@ -16,7 +16,7 @@ namespace MeLevaAi.Api.Services
         private readonly MotoristaRepository _motoristaRepository;
 
         private readonly PassageiroRepository _passageiroRepository;
-        
+
         private readonly double VALOR_POR_SEGUNDO = 0.2;
 
         private readonly double VELOCIDADE_EM_KMH = 30;
@@ -85,6 +85,7 @@ namespace MeLevaAi.Api.Services
 
                 if (motorista.CarteiraDeHabilitacao.DataVencimento < DateTime.Now)
                     return null;
+
                 if (motorista.EmCorrida)
                     return null;
 
@@ -113,8 +114,6 @@ namespace MeLevaAi.Api.Services
 
             var distanciaEmKm = CalculadorDistancia.CalcularDistancia(corrida.PontoInicial, corrida.PontoFinal);
 
-            var tempoEstimadoDestino = (distanciaEmKm / 30 * 60 * 60);
-
             var tempoEstimadoDestino = (distanciaEmKm / VELOCIDADE_EM_KMH * SEGUNDOS_EM_1H);
             var valorEstimado = tempoEstimadoDestino * VALOR_POR_SEGUNDO;
 
@@ -135,7 +134,8 @@ namespace MeLevaAi.Api.Services
 
             var corrida = _corridaRepository.Obter(corridaId);
 
-            if (corrida == null) {
+            if (corrida == null)
+            {
                 response.AddNotification(new Validations.Notification($"Corrida com o id {corridaId} não encontrada."));
                 return response;
             }
@@ -179,7 +179,7 @@ namespace MeLevaAi.Api.Services
             corrida.AtualizarStatusCorrida(StatusCorrida.Finalizada);
 
             _corridaRepository.Alterar(corrida);
-            
+
             return corrida.ToFinalizarCorridaDto();
         }
 
@@ -205,11 +205,11 @@ namespace MeLevaAi.Api.Services
                 return response;
             }
 
-            //if (corrida.StatusCorrida is not StatusCorrida.Finalizada)
-            //{
-            //    response.AddNotification(new Validations.Notification($"Corrida com o id {corridaId} precisa ser finalizada para avaliar o passageiro."));
-            //    return response;
-            //}
+            if (corrida.StatusCorrida != StatusCorrida.Finalizada)
+            {
+                response.AddNotification(new Validations.Notification($"Corrida com o id {corridaId} precisa ser finalizada para avaliar o passageiro."));
+                return response;
+            }
 
             if (request.Nota < NOTA_MINIMA || request.Nota > NOTA_MAXIMA)
             {
@@ -219,7 +219,7 @@ namespace MeLevaAi.Api.Services
 
             var passageiro = _passageiroRepository.Obter(corrida.PassageiroId);
 
-            if (passageiro is null)
+            if (passageiro == null)
             {
                 response.AddNotification(new Validations.Notification($"Passageiro não encontrado."));
                 return response;
@@ -248,15 +248,15 @@ namespace MeLevaAi.Api.Services
                 return response;
             }
 
-            //if (corrida.StatusCorrida is not StatusCorrida.Finalizada)
-            //{
-            //    response.AddNotification(new Validations.Notification($"Corrida com o id {corridaId} precisa ser finalizada para avaliar o motorista."));
-            //    return response;
-            //}
+            if (corrida.StatusCorrida != StatusCorrida.Finalizada)
+            {
+                response.AddNotification(new Validations.Notification($"Corrida com o id {corridaId} precisa ser finalizada para avaliar o motorista."));
+                return response;
+            }
 
             var motorista = _motoristaRepository.Obter(corrida.Veiculo.MotoristaId);
 
-            if (motorista is null)
+            if (motorista == null)
             {
                 response.AddNotification(new Validations.Notification($"Motorista não encontrado."));
                 return response;

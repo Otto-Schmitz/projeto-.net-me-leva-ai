@@ -46,17 +46,17 @@ namespace MeLevaAi.Api.Services
 
             var response = new MotoristaDto();
 
-            //if (!novoMotorista.VerificaIdadeMinima())
-            //{
-            //    response.AddNotification(new Validations.Notification("Idade mínima é de 18 anos."));
-            //    return response;
-            //}
+            if (!novoMotorista.VerificaIdadeMinima())
+            {
+               response.AddNotification(new Validations.Notification("Idade mínima é de 18 anos."));
+               return response;
+            }
 
-            //if (!novoMotorista.VerificaCpf())
-            //{
-            //    response.AddNotification(new Validations.Notification("Cpf inválido."));
-            //    return response;
-            //}
+            if (!novoMotorista.VerificaCpf())
+            {
+               response.AddNotification(new Validations.Notification("Cpf inválido."));
+               return response;
+            }
 
             _motoristaRepository.Cadastrar(novoMotorista);
 

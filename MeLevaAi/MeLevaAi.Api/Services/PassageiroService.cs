@@ -17,17 +17,17 @@ namespace MeLevaAi.Api.Services
 
             var response = new PassageiroDto();
 
-            //if (!novoPassageiro.VerificaIdadeMinima())
-            //{
-            //    response.AddNotification(new Validations.Notification("Idade mínima é de 16 anos."));
-            //    return response;
-            //}
+            if (!novoPassageiro.VerificaIdadeMinima())
+            {
+               response.AddNotification(new Validations.Notification("Idade mínima é de 16 anos."));
+               return response;
+            }
 
-            //if (!novoPassageiro.VerificaCpf())
-            //{
-            //    response.AddNotification(new Validations.Notification("Cpf inválido."));
-            //    return response;
-            //}
+            if (!novoPassageiro.VerificaCpf())
+            {
+               response.AddNotification(new Validations.Notification("Cpf inválido."));
+               return response;
+            }
 
             if (_passageiroRepository.ObterPorCpf(novoPassageiro.Cpf) != null)
             {
