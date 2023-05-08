@@ -59,12 +59,12 @@ namespace MeLevaAi.Api.Domains
         }
 
         public Corrida? ObterCorrida(Guid id)
-            => Corridas.FirstOrDefault(v => v.CorridaID == id);
+            => Corridas.FirstOrDefault(v => v.CorridaId == id);
 
 
         public void AlterarCorrida(Corrida corrida)
         {
-            RemoverCorrida(ObterCorrida(corrida.CorridaID));
+            RemoverCorrida(ObterCorrida(corrida.CorridaId));
             AdicionarCorrida(corrida);
         }
 

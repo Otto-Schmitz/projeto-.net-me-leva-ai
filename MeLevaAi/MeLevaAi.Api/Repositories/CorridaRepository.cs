@@ -11,7 +11,7 @@ namespace MeLevaAi.Api.Repositories
             => _corridas;
 
         public Corrida? Obter(Guid id)
-            => _corridas.FirstOrDefault(v => v.CorridaID == id);
+            => _corridas.FirstOrDefault(v => v.CorridaId == id);
 
         public void Adicionar(Corrida corrida)
         {
@@ -20,7 +20,7 @@ namespace MeLevaAi.Api.Repositories
 
         public void Alterar(Corrida corrida)
         {
-            Remover(corrida.CorridaID);
+            Remover(corrida.CorridaId);
             Adicionar(corrida);
         }
 

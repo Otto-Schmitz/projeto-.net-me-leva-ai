@@ -1,4 +1,4 @@
-﻿using MeLevaAi.Api.Contracts.Requests;
+using MeLevaAi.Api.Contracts.Requests;
 using MeLevaAi.Api.Contracts.Responses;
 using MeLevaAi.Api.Contracts;
 using MeLevaAi.Api.Services;
@@ -46,6 +46,19 @@ namespace MeLevaAi.Api.Controllers
             return Ok(response);
         }
 
+        [HttpPut("{id}/finalizar")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FinalizarCorridaDto))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
+        public ActionResult<FinalizarCorridaDto> Finalizar(Guid id)
+        {
+            var response = _corridaService.Finalizar(id);
+
+            if (!response.IsValid())
+                return NotFound(new ErrorResponse(response.Notifications));
+
+            return Ok(response);
+        }
+      
         [HttpPut("{id}/avaliar/passageiro")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AvaliarPessoaRequest))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
@@ -71,8 +84,6 @@ namespace MeLevaAi.Api.Controllers
 
             return Ok(response);
         }
-
-
     }
 
 
